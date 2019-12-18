@@ -199,12 +199,13 @@
 	<SFML/Network/IpAddress.hpp>
 	<vector>
 
-1576694145 source:/home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/MaquinaServer/main.cpp
+1576696671 source:/home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/MaquinaServer/main.cpp
 	<iostream>
 	<iostream>
-	<SFML/Network.hpp>
 	<unistd.h>
 	<wait.h>
+	<vector>
+	"Functions.h"
 
 1539885013 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/Network.hpp
 	<SFML/System.hpp>
@@ -399,4 +400,11 @@
 	<SFML/Network/Socket.hpp>
 	<SFML/Network/IpAddress.hpp>
 	<vector>
+
+1576697320 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/MaquinaServer/Functions.h
+	"Globals.h"
+
+1576697124 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/MaquinaServer/Globals.h
+	<SFML/Network.hpp>
+	<thread>
 

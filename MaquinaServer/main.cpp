@@ -11,7 +11,7 @@
 int main()
 {
     sf::Socket::Status status = dispatcher.listen(50000);
-    std::thread t(&getNewConnections);
+    std::thread t(&getNewConnections); // Esto se encarga de recibir todos los nuevos sockets
     t.detach();
 
     while(gameRunning)

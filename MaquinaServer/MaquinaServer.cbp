@@ -16,6 +16,7 @@
 					<Add directory="../SFML_2.5.1/include" />
 				</Compiler>
 				<Linker>
+					<Add option="-pthread" />
 					<Add library="../SFML_2.5.1/lib/libsfml-graphics.so" />
 					<Add library="../SFML_2.5.1/lib/libsfml-network.so" />
 					<Add library="../SFML_2.5.1/lib/libsfml-system.so" />
@@ -39,7 +40,17 @@
 		<Compiler>
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
+			<Add directory="../SFML_2.5.1/include" />
 		</Compiler>
+		<Linker>
+			<Add library="../SFML_2.5.1/lib/libsfml-graphics.so" />
+			<Add library="../SFML_2.5.1/lib/libsfml-network.so" />
+			<Add library="../SFML_2.5.1/lib/libsfml-system.so" />
+			<Add library="../SFML_2.5.1/lib/libsfml-window.so" />
+			<Add directory="../SFML_2.5.1/lib" />
+		</Linker>
+		<Unit filename="Functions.h" />
+		<Unit filename="Globals.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />
