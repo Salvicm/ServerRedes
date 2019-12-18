@@ -199,7 +199,8 @@
 	<SFML/Network/IpAddress.hpp>
 	<vector>
 
-1575303861 source:/home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/MaquinaServer/main.cpp
+1576694145 source:/home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/MaquinaServer/main.cpp
+	<iostream>
 	<iostream>
 	<SFML/Network.hpp>
 	<unistd.h>
