@@ -6,13 +6,11 @@
 #include "Functions.h"
 
 
-
-
 int main()
 {
     sf::Socket::Status status = dispatcher.listen(50000);
-    std::thread t(&getNewConnections); // Esto se encarga de recibir todos los nuevos sockets
-    t.detach();
+    std::thread conThreads(&getNewConnections); // Esto se encarga de recibir todos los nuevos sockets
+    conThreads.detach();
 
     while(gameRunning)
     {

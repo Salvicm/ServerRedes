@@ -1,5 +1,5 @@
 #include "Globals.h"
-void game();
+void gameFunct(sf::TcpSocket* client);
 void getNewConnections();
 void sendMessage();
 void receiveMessage();
@@ -19,13 +19,14 @@ void getNewConnections()
         {
             std::cout << "Conexión establecida con : " << temp << std::endl;
             sockets.push_back(temp);
-            std::thread t(&game, temp);
-            t.detach();
+            std::thread gameThread(&gameFunct, temp);
+            gameThread.detach();
         }
     }
 }
 
-void game(sf::TcpSocket* client){ // Esto se ejecutará en cada thread de nuevo user, controla el juego
+void gameFunct(sf::TcpSocket* client){ // Esto se ejecutará en cada thread de nuevo user, controla el juego
+
         sf::Packet pack;
         sf::Socket::Status receiveStatus;
     while(gameRunning){
