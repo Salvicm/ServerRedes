@@ -8,7 +8,7 @@ int main()
     std::cout << "ola" << std::endl;
     size_t received;
     sf::TcpSocket socket;
-    sf::Socket::Status status = socket.connect("192.168.122.171", 50000, sf::seconds(15.f)); //establcemos conexion con el server
+    sf::Socket::Status status = socket.connect("127.0.0.1", 50000, sf::seconds(15.f)); //establcemos conexion con el server
     sf::TcpListener dispatcher;
 
     if (status != sf::Socket::Done)

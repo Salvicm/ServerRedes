@@ -2,7 +2,7 @@
 
 
 # nombre variable = ruta de lib de SFML
-SFML_LIB=/home/pol/Desktop/Entregas/SO_Actividades/SFML-2.5.1/lib/
+SFML_LIB=/home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/lib/
 
 # printear variable
 echo $SFML_LIB
@@ -10,8 +10,6 @@ echo $SFML_LIB
 # exportar variable como variable del sistema para que la pueda usar
 export SFML_LIB
 
-# se desplaza en la carpeta desde terminal
-cd /home/pol/Desktop/Entregas/SO_Actividades/Bloque2_Servidor/bin/Debug
-
 # ejecuta el programa en la carpeta actual
-./Bloque2_Servidor
+./MaquinaServer
+
