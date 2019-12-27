@@ -1,0 +1,16 @@
+#!/bin/bash
+
+
+# nombre variable = ruta de lib de SFML
+SFML_LIB=/home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/lib/
+
+# printear variable
+echo $SFML_LIB
+
+# exportar variable como variable del sistema para que la pueda usar
+export SFML_LIB
+
+
+
+# ejecuta el programa en la carpeta actual
+./MaquinaCliente

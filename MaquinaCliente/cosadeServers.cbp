@@ -2,25 +2,21 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="MaquinaServer" />
+		<Option title="MaquinaCliente" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="bin/Debug/MaquinaServer" prefix_auto="1" extension_auto="1" />
+				<Option output="bin/Debug/cosadeServers" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
-					<Add directory="../SFML_2.5.1/include" />
 				</Compiler>
-				<Linker>
-					<Add directory="../SFML_2.5.1/lib" />
-				</Linker>
 			</Target>
 			<Target title="Release">
-				<Option output="bin/Release/MaquinaServer" prefix_auto="1" extension_auto="1" />
+				<Option output="bin/Release/cosadeServers" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Release/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
@@ -48,8 +44,6 @@
 			<Add directory="../SFML_2.5.1/lib" />
 			<Add directory="/usr/lib/x86_64-linux-gnu" />
 		</Linker>
-		<Unit filename="Functions.h" />
-		<Unit filename="Globals.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />
