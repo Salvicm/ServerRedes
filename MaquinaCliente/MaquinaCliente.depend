@@ -395,7 +395,7 @@
 	<SFML/Network/IpAddress.hpp>
 	<vector>
 
-1577478238 source:/home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/MaquinaCliente/main.cpp
+1577554942 source:/home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/MaquinaCliente/main.cpp
 	<iostream>
 	<SFML/Network.hpp>
 
