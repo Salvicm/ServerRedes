@@ -1,34 +1,40 @@
 #include <iostream>
+#include <thread>
 #include <SFML/Network.hpp>
 
-bool ReceivePacket(sf::TcpSocket& _socket)
+void ReceivePacket(sf::TcpSocket* client)
 {
-    sf::Packet infoToReceive;
-    sf::Socket::Status receiveStatus = _socket.receive(infoToReceive);//leemos el mensaje que viene del server
-    if(receiveStatus == sf::Socket::Disconnected)
-        return false;
-    if (receiveStatus != sf::Socket::Done)
+    sf::Packet pack;
+    sf::Socket::Status receiveStatus;
+    while(true)
     {
-        infoToReceive.clear();
-        std::cout << "Recepción de datos fallida" << std::endl;
+        pack.clear();
+        receiveStatus = client->receive(pack);
+        if(receiveStatus == sf::Socket::Disconnected)
+        {
+            std::cout << "Is Disconnected\n";
+            return;
+        }
+        if (receiveStatus != sf::Socket::Done)
+        {
+            std::cout << "Recepción de datos fallida" << std::endl;
+        }
+        else if(receiveStatus == sf::Socket::Done)
+        {
+            std::string tmp;
+            pack >> tmp;
+            std::cout << " Se ha recibido: " << tmp << std::endl;
+        }
     }
-    else//pasamos el mensaje a una string y lo  printeamos
-    {
-        std::string msg;
-        infoToReceive >> msg;
-        infoToReceive.clear();
-        std::cout << " >> " << msg << std::endl;
-    }
-    return true;
 }
-bool SendPacket(sf::TcpSocket& _socket)
+bool SendPacket(sf::TcpSocket* _socket)
 {
     std::string msg;
     std::cout << "Insert message to send:" << std::endl;;
     std::getline(std::cin, msg);
     sf::Packet infoToSend;
     infoToSend << msg;
-    sf::Socket::Status sendStatus = _socket.send(infoToSend);
+    sf::Socket::Status sendStatus = _socket->send(infoToSend);
     infoToSend.clear();
     std::cout << "Message sent: " << msg << std::endl;
     if(sendStatus == sf::Socket::Disconnected)
@@ -46,16 +52,21 @@ int main()
     ///CLIENTE
     std::cout << "Cliente iniciado" << std::endl;
     size_t received;
-    sf::TcpSocket socket;
-    sf::Socket::Status status = socket.connect("127.0.0.1", 50000, sf::seconds(15.f)); //establcemos conexion con el server
+    sf::TcpSocket* socket = new sf::TcpSocket();
+    sf::Socket::Status status = socket->connect("127.0.0.1", 50001, sf::seconds(15.f)); //establcemos conexion con el server
 
     if (status != sf::Socket::Done)
     {
         //No se puede vincular al puerto 5000
     }
-    while(SendPacket(socket))
+    else
     {
-     //   SendPacket(socket);
+        std::thread listener(&ReceivePacket, socket);
+        listener.detach();
+        while(SendPacket(socket))
+        {
+            //   SendPacket(socket);
+        }
     }
     std::cout << "Cliente Terminado" << std::endl;
 

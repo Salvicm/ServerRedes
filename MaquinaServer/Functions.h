@@ -1,8 +1,8 @@
 #include "Globals.h"
 void gameFunct(sf::TcpSocket* client);
 void getNewConnections();
-void sendMessage();
-void receiveMessage();
+void sendMessage(sf::TcpSocket* client, std::string message);
+void receiveMessages(sf::TcpSocket* client);
 
 
 
@@ -24,30 +24,50 @@ void getNewConnections()
     }
 }
 
-void gameFunct(sf::TcpSocket* client){ // Esto se ejecutará en cada thread de nuevo user, controla el juego
+void gameFunct(sf::TcpSocket* client)  // Esto se ejecutará en cada thread de nuevo user, controla el juego
+{
+    std::thread listener(&receiveMessages, client);
+    listener.detach();
 
-        sf::Packet pack;
-        sf::Socket::Status receiveStatus;
-    while(gameRunning){
+
+}
+void sendMessage(sf::TcpSocket* client, std::string message)
+{
+    sf::Packet infoToSend;
+    infoToSend << message;
+    infoToSend.clear();
+    sf::Socket::Status sendStatus = client->send(infoToSend);
+    std::cout << "Message sent: " << message << std::endl;
+    if(sendStatus == sf::Socket::Disconnected)
+        return;
+    if(sendStatus != sf::Socket::Done)
+    {
+        std::cout << "Envio de datos fallido" << std::endl;
+    }
+}
+void receiveMessages(sf::TcpSocket* client)
+{
+    sf::Packet pack;
+    sf::Socket::Status receiveStatus;
+    while(gameRunning)
+    {
         receiveStatus = client->receive(pack);
-        if(receiveStatus == sf::Socket::Disconnected){
+        if(receiveStatus == sf::Socket::Disconnected)
+        {
             std::cout << "Is Disconnected\n";
             return;
         }
         if (receiveStatus != sf::Socket::Done)
         {
             std::cout << "Recepción de datos fallida" << std::endl;
-        }else if(receiveStatus == sf::Socket::Done){
+        }
+        else if(receiveStatus == sf::Socket::Done)
+        {
             std::string tmp;
             pack >> tmp;
-            std::cout << "Has recibido: " << tmp << std::endl;
+            std::cout << " >> " << tmp << std::endl;
+            if(tmp[0] == 'A' || tmp[0] == 'a')
+                sendMessage(client, tmp);
         }
     }
-
-}
-void sendMessage(){
-
-}
-void receiveMessage(){
-
 }

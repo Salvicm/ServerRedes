@@ -199,7 +199,7 @@
 	<SFML/Network/IpAddress.hpp>
 	<vector>
 
-1577474912 source:/home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/MaquinaServer/main.cpp
+1577568947 source:/home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/MaquinaServer/main.cpp
 	<iostream>
 	<iostream>
 	<unistd.h>
@@ -401,7 +401,7 @@
 	<SFML/Network/IpAddress.hpp>
 	<vector>
 
-1577557451 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/MaquinaServer/Functions.h
+1577569670 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/MaquinaServer/Functions.h
 	"Globals.h"
 
 1576697124 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/MaquinaServer/Globals.h

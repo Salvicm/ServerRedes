@@ -8,7 +8,7 @@
 
 int main()
 {
-    sf::Socket::Status status = dispatcher.listen(50000);
+    sf::Socket::Status status = dispatcher.listen(50001);
     std::thread conThreads(&getNewConnections); // Esto se encarga de recibir todos los nuevos sockets
     conThreads.detach();
 
