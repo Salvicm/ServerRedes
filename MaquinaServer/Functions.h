@@ -10,16 +10,15 @@ void getNewConnections()
 {
     while(gameRunning)
     {
-        sf::TcpSocket* temp = new sf::TcpSocket();
-        if (dispatcher.accept(*temp) != sf::Socket::Done)
+        sf::TcpSocket* newClient = new sf::TcpSocket();
+        if (dispatcher.accept(*newClient) != sf::Socket::Done)
         {
-            std::cout << "Conexión no aceptada" << std::endl;
         }
         else
         {
-            std::cout << "Conexión establecida con : " << temp << std::endl;
-            sockets.push_back(temp);
-            std::thread gameThread(&gameFunct, temp);
+            std::cout << "Conexión establecida con : " << newClient << std::endl;
+            sockets.push_back(newClient);
+            std::thread gameThread(&gameFunct, newClient);
             gameThread.detach();
         }
     }
@@ -32,15 +31,16 @@ void gameFunct(sf::TcpSocket* client){ // Esto se ejecutará en cada thread de n
     while(gameRunning){
         receiveStatus = client->receive(pack);
         if(receiveStatus == sf::Socket::Disconnected){
-           // enviar info del jugador desconectado
-           // Eliminar al jugador de la lista de sockets
+            std::cout << "Is Disconnected\n";
             return;
         }
         if (receiveStatus != sf::Socket::Done)
         {
             std::cout << "Recepción de datos fallida" << std::endl;
-        }else{
-            std::cout << "Has recibido: " << pack << std::endl;
+        }else if(receiveStatus == sf::Socket::Done){
+            std::string tmp;
+            pack >> tmp;
+            std::cout << "Has recibido: " << tmp << std::endl;
         }
     }
 

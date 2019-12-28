@@ -21,20 +21,24 @@ bool ReceivePacket(sf::TcpSocket& _socket)
     }
     return true;
 }
-void SendPacket(sf::TcpSocket& _socket)
+bool SendPacket(sf::TcpSocket& _socket)
 {
     std::string msg;
-    std::cin >> msg;
+    std::cout << "Insert message to send:" << std::endl;;
+    std::getline(std::cin, msg);
     sf::Packet infoToSend;
     infoToSend << msg;
     sf::Socket::Status sendStatus = _socket.send(infoToSend);
     infoToSend.clear();
+    std::cout << "Message sent: " << msg << std::endl;
     if(sendStatus == sf::Socket::Disconnected)
-        return;
+        return false;
     if(sendStatus != sf::Socket::Done)
     {
-       std::cout << "Envio de datos fallido" << std::endl;
+        std::cout << "Envio de datos fallido" << std::endl;
+        return false;
     }
+    return true;
 
 }
 int main()
@@ -49,9 +53,9 @@ int main()
     {
         //No se puede vincular al puerto 5000
     }
-    while(ReceivePacket(socket))
+    while(SendPacket(socket))
     {
-        SendPacket(socket);
+     //   SendPacket(socket);
     }
     std::cout << "Cliente Terminado" << std::endl;
 
