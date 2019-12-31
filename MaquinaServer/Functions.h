@@ -35,8 +35,8 @@ void sendMessage(sf::TcpSocket* client, std::string message)
 {
     sf::Packet infoToSend;
     infoToSend << message;
-    infoToSend.clear();
     sf::Socket::Status sendStatus = client->send(infoToSend);
+    infoToSend.clear();
     std::cout << "Message sent: " << message << std::endl;
     if(sendStatus == sf::Socket::Disconnected)
         return;
