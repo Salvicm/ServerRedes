@@ -1,73 +1,39 @@
-#include "Globals.h"
-void gameFunct(sf::TcpSocket* client);
-void getNewConnections();
-void sendMessage(sf::TcpSocket* client, std::string message);
-void receiveMessages(sf::TcpSocket* client);
+#include "ConnectivityFunctions.h"
 
 
 
-void getNewConnections()
-{
-    while(gameRunning)
-    {
-        sf::TcpSocket* newClient = new sf::TcpSocket();
-        if (dispatcher.accept(*newClient) != sf::Socket::Done)
-        {
-        }
-        else
-        {
-            std::cout << "Conexión establecida con : " << newClient << std::endl;
-            sockets.push_back(newClient);
-            std::thread gameThread(&gameFunct, newClient);
-            gameThread.detach();
-        }
-    }
+
+
+
+void verifyUser(sf::TcpSocket* client){
+    sendMessage(client, "Verifying account...");
 }
-
-void gameFunct(sf::TcpSocket* client)  // Esto se ejecutará en cada thread de nuevo user, controla el juego
-{
-    std::thread listener(&receiveMessages, client);
-    listener.detach();
-
+void spinRoulette(sf::TcpSocket* client){
+    sendMessage(client,"Spinning Roulette...");
+}
+void getGems(sf::TcpSocket* client){
+    sendMessage(client, "Getting available gems...");
+}
+void selectMap(sf::TcpSocket* client){
+    sendMessage(client, "Selecting map...");
 
 }
-void sendMessage(sf::TcpSocket* client, std::string message)
-{
-    sf::Packet infoToSend;
-    infoToSend << message;
-    sf::Socket::Status sendStatus = client->send(infoToSend);
-    infoToSend.clear();
-    std::cout << "Message sent: " << message << std::endl;
-    if(sendStatus == sf::Socket::Disconnected)
-        return;
-    if(sendStatus != sf::Socket::Done)
-    {
-        std::cout << "Envio de datos fallido" << std::endl;
-    }
+void moveCharacter(sf::TcpSocket* client){
+    sendMessage(client, "Moving Character...");
 }
-void receiveMessages(sf::TcpSocket* client)
-{
-    sf::Packet pack;
-    sf::Socket::Status receiveStatus;
-    while(gameRunning)
-    {
-        receiveStatus = client->receive(pack);
-        if(receiveStatus == sf::Socket::Disconnected)
-        {
-            std::cout << "Is Disconnected\n";
-            return;
-        }
-        if (receiveStatus != sf::Socket::Done)
-        {
-            std::cout << "Recepción de datos fallida" << std::endl;
-        }
-        else if(receiveStatus == sf::Socket::Done)
-        {
-            std::string tmp;
-            pack >> tmp;
-            std::cout << " >> " << tmp << std::endl;
-            if(tmp[0] == 'A' || tmp[0] == 'a')
-                sendMessage(client, tmp);
-        }
-    }
+void battleAction(sf::TcpSocket* client){
+    sendMessage(client, "Using battle command...");
 }
+void getPlayers(sf::TcpSocket* client){
+    sendMessage(client, "Getting available players...");
+}
+
+void updateEnemies(sf::TcpSocket* client){
+        sendMessage(client, "Updating enemies...");
+}
+
+
+
+
+
+
