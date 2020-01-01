@@ -32,7 +32,8 @@ void verifyUser(sf::TcpSocket* client, std::string userName, std::string passwor
     catch(sql::SQLException &e)
     {
         switch(e.getErrorCode()){
-        case 1064:// Fallo de query
+        case 1064:// Fallo de mensaje en la query
+            sendMessage(client, "MessageError please do NOT send strange characters.\n");
             break;
     default:
         std::cout << e.getErrorCode() << std::endl;
