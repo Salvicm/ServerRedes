@@ -6,7 +6,7 @@ void getNewConnections();
 void sendMessage(sf::TcpSocket* client, std::string message);
 void receiveMessages(sf::TcpSocket* client);
 
-void verifyUser(sf::TcpSocket* client);
+void verifyUser(sf::TcpSocket* client, std::string userName, std::string password);
 void spinRoulette(sf::TcpSocket* client);
 void getGems(sf::TcpSocket* client);
 void selectMap(sf::TcpSocket* client);
@@ -93,10 +93,11 @@ void analyzeMessage(sf::TcpSocket* client, std::string message)
     {
         tmpChar = message[index];
         if(tmpChar != ' ' && tmpChar != '_')
-            tmpString += tmpChar;
+            tmpString += toupper(tmpChar);
         index++;
     }
     while((tmpChar != ' ' && tmpChar != '_') && index < message.length());
+
     std::cout << tmpString << std::endl;
 
     if(tmpString == "HELP" || tmpString ==  "help"){
@@ -105,8 +106,28 @@ void analyzeMessage(sf::TcpSocket* client, std::string message)
     }
 
 
-    else if(tmpString == "VERIFY")
-        verifyUser(client);
+    else if(tmpString == "VERIFY"){
+        std::string user = "";
+        std::string password = "";
+        do
+        {
+            tmpChar = message[index];
+            if(tmpChar != ' ' && tmpChar != '_')
+                user += tmpChar;
+            index++;
+        }
+        while((tmpChar != ' ' && tmpChar != '_') && index < message.length());
+
+        do
+        {
+            tmpChar = message[index];
+            if(tmpChar != ' ' && tmpChar != '_')
+                password += tmpChar;
+            index++;
+        }
+        while((tmpChar != ' ' && tmpChar != '_') && index < message.length());
+        verifyUser(client, user, password);
+    }
     else if(tmpString ==  "ROULETTE")
         spinRoulette(client);
     else if(tmpString ==  "GETGEMS")

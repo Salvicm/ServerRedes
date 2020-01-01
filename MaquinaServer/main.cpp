@@ -1,13 +1,10 @@
-#include <iostream>
-#include <iostream>
-#include <unistd.h>
-#include <wait.h>
-#include <vector>
+
 #include "Functions.h"
 
 
 int main()
 {
+    init();
     sf::Socket::Status status = dispatcher.listen(50000);
     std::thread conThreads(&getNewConnections); // Esto se encarga de recibir todos los nuevos sockets
     conThreads.detach();
@@ -27,6 +24,13 @@ int main()
         (*it)->disconnect();
     }
     dispatcher.close();
+    if(res != nullptr) //  Asegurarse porque, si no hemos hecho ninguna query esto petará
+        res->close();
+    delete(res);
+    stmt->close();
+    delete(stmt);
+    con->close();
+    delete(con);
     return 0;
 }
 

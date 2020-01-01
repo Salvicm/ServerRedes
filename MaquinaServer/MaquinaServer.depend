@@ -199,12 +199,7 @@
 	<SFML/Network/IpAddress.hpp>
 	<vector>
 
-1577788547 source:/home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/MaquinaServer/main.cpp
-	<iostream>
-	<iostream>
-	<unistd.h>
-	<wait.h>
-	<vector>
+1577879190 source:/home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/MaquinaServer/main.cpp
 	"Functions.h"
 
 1577753151 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/Network.hpp
@@ -401,16 +396,56 @@
 	<SFML/Network/IpAddress.hpp>
 	<vector>
 
-1577793733 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/MaquinaServer/Functions.h
+1577881599 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/MaquinaServer/Functions.h
 	"ConnectivityFunctions.h"
 
-1577753151 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/MaquinaServer/Globals.h
+1577879622 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/MaquinaServer/Globals.h
 	<SFML/Network.hpp>
 	<thread>
+	<iostream>
+	<resultset.h>
+	<statement.h>
+	<mysql_connection.h>
+	<mysql_driver.h>
+	<unistd.h>
+	<wait.h>
+	<vector>
 
 1577793116 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/MaquinaServer/BasicFunctions.h
 	"Globals.h"
 
-1577793901 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/MaquinaServer/ConnectivityFunctions.h
+1577879636 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/MaquinaServer/ConnectivityFunctions.h
 	"Globals.h"
+
+1494432899 /usr/include/cppconn/resultset.h
+	"config.h"
+	<list>
+	<map>
+	<iostream>
+	"sqlstring.h"
+	"resultset_metadata.h"
+
+1495387242 /usr/include/cppconn/config.h
+	<stdint.h>
+	<inttypes.h>
+	<stdint.h>
+
+1494432899 /usr/include/cppconn/sqlstring.h
+	<string>
+	<algorithm>
+	"build_config.h"
+	<iostream>
+
+1494432899 /usr/include/cppconn/build_config.h
+
+1494432899 /usr/include/cppconn/resultset_metadata.h
+	"sqlstring.h"
+	"datatype.h"
+
+1494432899 /usr/include/cppconn/datatype.h
+
+1494432899 /usr/include/cppconn/statement.h
+	"config.h"
+	"resultset.h"
+	<string>
 
