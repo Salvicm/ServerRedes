@@ -8,9 +8,11 @@
 #include <unistd.h>
 #include <wait.h>
 #include <vector>
+#include <map>
+
 
 bool gameRunning = true;
-std::vector<sf::TcpSocket*> sockets;
+std::map<sf::TcpSocket*, int> sockets;
 sf::TcpListener dispatcher;
 char* HOST = "tcp://127.0.0.1";
 char* DATABASE = "AA1_Practica1_Bloque2";
@@ -21,11 +23,11 @@ sql::Connection* con;
 sql::Statement* stmt;
 sql::ResultSet* res;
 
+
 void init(){
     driver = get_driver_instance();
     con = driver->connect(HOST, USER, PASSWORD);
     con->setSchema(DATABASE);
     stmt = con->createStatement();
 }
-
 

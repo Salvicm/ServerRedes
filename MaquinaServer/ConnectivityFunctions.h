@@ -4,6 +4,7 @@ void analyzeMessage(sf::TcpSocket* client, std::string message);
 void gameFunct(sf::TcpSocket* client);
 void getNewConnections();
 void sendMessage(sf::TcpSocket* client, std::string message);
+void sendMessage(sf::TcpSocket* client, int message);
 void receiveMessages(sf::TcpSocket* client);
 
 void verifyUser(sf::TcpSocket* client, std::string userName, std::string password);
@@ -26,7 +27,7 @@ void getNewConnections()
         else
         {
             std::cout << "Conexión establecida con : " << newClient << std::endl;
-            sockets.push_back(newClient);
+            sockets[newClient] = -1;
             std::thread gameThread(&gameFunct, newClient);
             gameThread.detach();
             sendMessage(newClient, "Enter Help to get all available commands");
@@ -49,7 +50,7 @@ void sendMessage(sf::TcpSocket* client, std::string message)
     infoToSend << message;
     sf::Socket::Status sendStatus = client->send(infoToSend);
     infoToSend.clear();
-    std::cout << "Message sent succesfully" << std::endl;
+    std::cout << "Message sent succesfully to: " << client <<" With ID: " << std::to_string(sockets[client]) << std::endl;
     if(sendStatus == sf::Socket::Disconnected)
         return;
     if(sendStatus != sf::Socket::Done)
@@ -57,6 +58,10 @@ void sendMessage(sf::TcpSocket* client, std::string message)
         std::cout << "Envio de datos fallido" << std::endl;
     }
 }
+
+
+
+
 void receiveMessages(sf::TcpSocket* client)
 {
     sf::Packet pack;
@@ -77,7 +82,6 @@ void receiveMessages(sf::TcpSocket* client)
         {
             std::string tmp;
             pack >> tmp;
-            std::cout << "El mensaje se recibe y empieza el analisis\n";
             analyzeMessage(client, tmp);
 
         }

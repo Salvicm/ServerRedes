@@ -1,4 +1,3 @@
-
 #include "Functions.h"
 
 
@@ -19,9 +18,9 @@ int main()
             gameRunning = false;
         }
     }
-    std::vector<sf::TcpSocket*>::iterator it;
+    std::map<sf::TcpSocket*, int>::iterator it;
     for (it = sockets.begin(); it != sockets.end(); ++it){
-        (*it)->disconnect();
+         it->first->disconnect();
     }
     dispatcher.close();
     if(res != nullptr) //  Asegurarse porque, si no hemos hecho ninguna query esto petará
