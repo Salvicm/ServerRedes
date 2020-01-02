@@ -6,6 +6,8 @@ void getNewConnections();
 void sendMessage(sf::TcpSocket* client, std::string message);
 void sendMessage(sf::TcpSocket* client, int message);
 void receiveMessages(sf::TcpSocket* client);
+std::string getUserName(sf::TcpSocket* client);
+std::string getUserName(int client);
 
 void verifyUser(sf::TcpSocket* client, std::string userName, std::string password);
 void spinRoulette(sf::TcpSocket* client);
@@ -65,6 +67,8 @@ void sendMessage(sf::TcpSocket* client, std::string message)
 
 void receiveMessages(sf::TcpSocket* client)
 {
+
+
     sf::Packet pack;
     sf::Socket::Status receiveStatus;
     while(gameRunning)
@@ -72,7 +76,8 @@ void receiveMessages(sf::TcpSocket* client)
         receiveStatus = client->receive(pack);
         if(receiveStatus == sf::Socket::Disconnected)
         {
-            std::cout << "Is Disconnected\n";
+            std::cout << client << " With ID: " << getUserName(sockets[client]) << " has Disconnected\n";
+            sockets.erase(client);
             return;
         }
         if (receiveStatus != sf::Socket::Done)
@@ -84,7 +89,56 @@ void receiveMessages(sf::TcpSocket* client)
             std::string tmp;
             pack >> tmp;
             analyzeMessage(client, tmp);
+        }
+    }
+}
+std::string getUserName(sf::TcpSocket* client)
+{
+    try
+    {
 
+        std::string tmpQuery = "SELECT nombreUser FROM Cuentas WHERE ID_User = '" + std::to_string(sockets[client]) + "'";
+        res = stmt->executeQuery(tmpQuery.c_str());
+        while(res->next())
+        {
+            return res->getString("nombreUser");
+        }
+    }
+    catch(sql::SQLException &e)
+    {
+        switch(e.getErrorCode())
+        {
+        case 1064:// Fallo de mensaje en la query
+            sendMessage(client, "MessageError please do NOT send strange characters.\n");
+            break;
+        default:
+            std::cout << e.getErrorCode() << std::endl;
+            break;
+        }
+    }
+}
+std::string getUserName(int client)
+{
+    try
+    {
+
+        std::string tmpQuery = "SELECT nombreUser FROM Cuentas WHERE ID_User = '" + std::to_string(client) + "'";
+        res = stmt->executeQuery(tmpQuery.c_str());
+        while(res->next())
+        {
+            return res->getString("nombreUser");
+        }
+    }
+    catch(sql::SQLException &e)
+    {
+        switch(e.getErrorCode())
+        {
+        case 1064:// Fallo de mensaje en la query
+
+            break;
+        default:
+            std::cout << e.getErrorCode() << std::endl;
+            break;
         }
     }
 }

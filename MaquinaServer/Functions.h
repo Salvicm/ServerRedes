@@ -13,8 +13,8 @@ void verifyUser(sf::TcpSocket* client, std::string userName, std::string passwor
 
         if(res->next())
         {
-            int existe = res->getInt(1);
-            if(existe == 1)
+            int exists = res->getInt(1);
+            if(exists == 1)
             {
                 tmpString =  "SELECT ID_User from Cuentas WHERE NombreUser = '" + userName + "'";
                 res = stmt->executeQuery(tmpString.c_str());
@@ -26,7 +26,7 @@ void verifyUser(sf::TcpSocket* client, std::string userName, std::string passwor
 
 
             }
-            else if(existe == 0)
+            else if(exists == 0)
             {
                 sendMessage(client, "\nUser account doesn't exist\n:(\n");
             }
@@ -41,7 +41,7 @@ void verifyUser(sf::TcpSocket* client, std::string userName, std::string passwor
         switch(e.getErrorCode())
         {
         case 1064:// Fallo de mensaje en la query
-            sendMessage(client, "MessageError please do NOT send strange characters.\n");
+            sendMessage(client, "Error please do NOT send strange characters.\n");
             break;
         default:
             std::cout << e.getErrorCode() << std::endl;
@@ -50,8 +50,34 @@ void verifyUser(sf::TcpSocket* client, std::string userName, std::string passwor
     }
 }
 void spinRoulette(sf::TcpSocket* client)
-{
+{ // TODO
     sendMessage(client,"Spinning Roulette...");
+
+    std::string tmpDML = "SELECT LastRoulette from Cuentas WHERE ID_User = '" + std::to_string(sockets[client])+ "'";
+    try
+    {
+        res = stmt->executeQuery(tmpDML.c_str());
+        while(res->next()){
+            std::cout << res->getString("LastRoulette") << std::endl;
+
+        }
+
+
+    }
+    catch(sql::SQLException &e)
+    {
+        switch(e.getErrorCode())
+        {
+        case 1064:// Fallo de mensaje en la query
+            sendMessage(client, "Error: Query name incorrect.\n");
+            return;
+            break;
+        default:
+            std::cout << "Error: " << e.getErrorCode() << std::endl;
+            return;
+            break;
+        }
+    }
 }
 void getGems(sf::TcpSocket* client)
 {
@@ -104,7 +130,27 @@ void battleAction(sf::TcpSocket* client)
 void getPlayers(sf::TcpSocket* client)
 {
     sendMessage(client, "Getting available players...");
+    if(sockets[client] == -1)
+    {
+        sendMessage(client, "Please enter session before trying to access\n");
+        return;
+    }
+
+
+        int tmp;
+        int counter = 0;
+        std::map<sf::TcpSocket*, int>::iterator it;
+
+        for (it = sockets.begin(); it != sockets.end(); ++it)
+        {
+            counter++;
+            std::string tmpStr = "Player: " + std::to_string(counter) + " --> " + getUserName(it->first);
+            sendMessage(client, tmpStr);
+
+        }
+
 }
+
 
 void updateEnemies(sf::TcpSocket* client)
 {
@@ -117,7 +163,7 @@ void collect(sf::TcpSocket* client, int gemID)
     if(sockets[client] == -1){
         sendMessage(client, "Please start session before doing anything else");
         return;
-        }
+    }
     std::string tmpDML = "SELECT Cantidad from GemasObtenidas WHERE FK_User = '" + std::to_string(sockets[client]) + "' and FK_Gema = '" + std::to_string(gemID) + "'";
     try
     {

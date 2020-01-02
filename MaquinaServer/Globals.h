@@ -1,4 +1,5 @@
 #include <SFML/Network.hpp>
+#include <ctime>
 #include <thread>
 #include <iostream>
 #include <resultset.h>
@@ -10,7 +11,7 @@
 #include <vector>
 #include <map>
 
-
+const uint32_t maxTimeStamp = 5*60*1000; // 5 minutos en milisegundos
 bool gameRunning = true;
 std::map<sf::TcpSocket*, int> sockets;
 sf::TcpListener dispatcher;
