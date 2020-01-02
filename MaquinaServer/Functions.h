@@ -18,7 +18,8 @@ void verifyUser(sf::TcpSocket* client, std::string userName, std::string passwor
             {
                 tmpString =  "SELECT ID_User from Cuentas WHERE NombreUser = '" + userName + "'";
                 res = stmt->executeQuery(tmpString.c_str());
-                if(res->next()){
+                if(res->next())
+                {
                     sockets[client] = res->getInt("ID_User");
                     sendMessage(client, "\nUser account exists!\n:)\n");
                 }
@@ -37,13 +38,14 @@ void verifyUser(sf::TcpSocket* client, std::string userName, std::string passwor
     }
     catch(sql::SQLException &e)
     {
-        switch(e.getErrorCode()){
+        switch(e.getErrorCode())
+        {
         case 1064:// Fallo de mensaje en la query
             sendMessage(client, "MessageError please do NOT send strange characters.\n");
             break;
-    default:
-        std::cout << e.getErrorCode() << std::endl;
-        break;
+        default:
+            std::cout << e.getErrorCode() << std::endl;
+            break;
         }
     }
 }
@@ -53,7 +55,6 @@ void spinRoulette(sf::TcpSocket* client)
 }
 void getGems(sf::TcpSocket* client)
 {
-    std::cout << sockets[client] << std::endl;
     if(sockets[client] == -1)
     {
         sendMessage(client, "Please enter session before trying to access\n");
@@ -108,6 +109,58 @@ void getPlayers(sf::TcpSocket* client)
 void updateEnemies(sf::TcpSocket* client)
 {
     sendMessage(client, "Updating enemies...");
+}
+
+
+void collect(sf::TcpSocket* client, int gemID)
+{
+    if(sockets[client] == -1){
+        sendMessage(client, "Please start session before doing anything else");
+        return;
+        }
+    std::string tmpDML = "SELECT Cantidad from GemasObtenidas WHERE FK_User = '" + std::to_string(sockets[client]) + "' and FK_Gema = '" + std::to_string(gemID) + "'";
+    try
+    {
+        res = stmt->executeQuery(tmpDML.c_str());
+        if(res->next()){
+            int currentQuantity = res->getInt("Cantidad");
+            std::string tmpSQL = "UPDATE GemasObtenidas SET Cantidad = '" + std::to_string(currentQuantity+1)
+                + "' WHERE FK_User = '" + std::to_string(sockets[client]) + "' and FK_Gema = '" + std::to_string(gemID)  + "'";
+
+            res = stmt->executeQuery(tmpSQL.c_str());
+
+            }
+        else{
+            tmpDML = "SELECT count(*) FROM Gemas WHERE ID_Gema = '" + std::to_string(gemID) + "'";
+            res = stmt->executeQuery(tmpDML.c_str());
+            if(res->next()){
+                if(res->getInt(1) == 1){
+                    std::string tmpSQL = "INSERT INTO GemasObtenidas(FK_User, FK_Gema, Cantidad) VALUES('" + std::to_string(sockets[client]) + "', '" + std::to_string(gemID) + "', '1')";
+                    res = stmt->executeQuery(tmpSQL.c_str());
+                }else if(res->getInt(1)== 0){
+                    std::cout << "Inexistent gem id\n";
+                    return;
+                }
+
+            }
+
+        }
+
+    }
+    catch(sql::SQLException &e)
+    {
+        switch(e.getErrorCode())
+        {
+        case 1064:// Fallo de mensaje en la query
+            sendMessage(client, "Error: Query name incorrect.\n");
+            return;
+            break;
+        default:
+            std::cout << "Error: " << e.getErrorCode() << std::endl;
+            return;
+            break;
+        }
+    }
 }
 
 

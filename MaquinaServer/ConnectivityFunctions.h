@@ -15,6 +15,7 @@ void moveCharacter(sf::TcpSocket* client);
 void battleAction(sf::TcpSocket* client);
 void getPlayers(sf::TcpSocket* client);
 void updateEnemies(sf::TcpSocket* client);
+void collect(sf::TcpSocket* client, int gemID);
 
 void getNewConnections()
 {
@@ -104,13 +105,15 @@ void analyzeMessage(sf::TcpSocket* client, std::string message)
 
     std::cout << tmpString << std::endl;
 
-    if(tmpString == "HELP" || tmpString ==  "help"){
+    if(tmpString == "HELP" || tmpString ==  "help")
+    {
         std::string helpMsg = ">> Help:\nType VERIFY to verify an account.\nType ROULETTE to spin the roulette.\nType GETGEMS to get all disponible gems.\nType SELECTMAP to get select a map.\nType MOVE to... well, move.\nType BATTLE to send a Battle Action.\nType USERS to get all disponible players.\nType UPDATEENEMIES to move the enemies.\n";
         sendMessage(client, helpMsg);
     }
 
 
-    else if(tmpString == "VERIFY"){
+    else if(tmpString == "VERIFY")
+    {
         std::string user = "";
         std::string password = "";
         do
@@ -142,6 +145,25 @@ void analyzeMessage(sf::TcpSocket* client, std::string message)
         moveCharacter(client);
     else if(tmpString ==  "BATTLE")
         battleAction(client);
+    else if(tmpString ==  "COLLECT")
+    {
+        std::string number = "";
+        do
+        {
+            tmpChar = message[index];
+            if(tmpChar >= '0' && tmpChar <= '9')
+                number += tmpChar;
+            else
+            {
+                std::cout << "Collect message incorrect" << std::endl;
+                return;
+            }
+            index++;
+        }
+        while((tmpChar != ' ' && tmpChar != '_') && index < message.length());
+
+        collect(client, std::stoi(number));
+    }
     else if(tmpString ==  "USERS")
         getPlayers(client);
     else if(tmpString ==  "UPDATEENEMIES")
