@@ -1,4 +1,4 @@
-#include "Globals.h"
+#include "Utils.h"
 
 void analyzeMessage(sf::TcpSocket* client, std::string message);
 void gameFunct(sf::TcpSocket* client);
@@ -9,15 +9,13 @@ void receiveMessages(sf::TcpSocket* client);
 std::string getUserName(sf::TcpSocket* client);
 std::string getUserName(int client);
 
-int getNextInt(int *index, std::string message);
-std::string getNextString(int *index, std::string message);
 
 
 void verifyUser(sf::TcpSocket* client, std::string userName, std::string password);
 void spinRoulette(sf::TcpSocket* client);
 void getGems(sf::TcpSocket* client);
 void selectMap(sf::TcpSocket* client);
-void moveCharacter(sf::TcpSocket* client);
+void moveCharacter(sf::TcpSocket* client, directions _direction, vector2 playerPos);
 void battleAction(sf::TcpSocket* client);
 void getPlayers(sf::TcpSocket* client);
 void updateEnemies(sf::TcpSocket* client);
@@ -38,17 +36,14 @@ void getNewConnections()
             std::thread gameThread(&gameFunct, newClient);
             gameThread.detach();
             sendMessage(newClient, "Enter Help to get all available commands");
-
         }
     }
 }
 
-void gameFunct(sf::TcpSocket* client)  // Esto se ejecutará en cada thread de nuevo user, controla el juego
+void gameFunct(sf::TcpSocket* client)  // Esto se ejecutará en cada thread de nuevo user, controla la entrada de mensajes
 {
     std::thread listener(&receiveMessages, client);
     listener.detach();
-
-
 }
 
 void sendMessage(sf::TcpSocket* client, std::string message)
@@ -145,43 +140,14 @@ std::string getUserName(int client)
     }
 }
 
-int getNextInt(int *index, std::string message){
-   std::string number = "";
-   char tmpChar;
-    do
-        {
-            tmpChar = message[*index];
-            if(tmpChar >= '0' && tmpChar <= '9')
-                number += tmpChar;
-            else
-            {
-                std::cout << "Collect message incorrect" << std::endl;
-                return -1;
-            }
-            (*index)++;
-        }
-        while((tmpChar != ' ' && tmpChar != '_') && *index < message.length());
-        return std::stoi(number);
-}
-std::string getNextString(int *index, std::string message){
-    std::string tmpString = "";
-    char tmpChar;
-    do
-    {
-        tmpChar = message[*index];
-        if(tmpChar != ' ' && tmpChar != '_')
-            tmpString += tmpChar;
-        (*index)++;
-    }
-    while((tmpChar != ' ' && tmpChar != '_') && *index < message.length());
-    return tmpString;
-}
+
 
 void analyzeMessage(sf::TcpSocket* client, std::string message)
 {
     int index = 0;
     std::string tmpString = getNextString(&index, message);
-    for(int i = 0; i < tmpString.length();i++){
+    for(int i = 0; i < tmpString.length(); i++)
+    {
         tmpString[i] = std::toupper(tmpString[i]);
     }
 
@@ -193,7 +159,8 @@ void analyzeMessage(sf::TcpSocket* client, std::string message)
 
 
     else if(tmpString == "VERIFY")
-    {   std::string a = getNextString(&index, message);
+    {
+        std::string a = getNextString(&index, message);
         std::string b = getNextString(&index, message);
         verifyUser(client, a, b);
     }
@@ -204,7 +171,31 @@ void analyzeMessage(sf::TcpSocket* client, std::string message)
     else if(tmpString ==  "SELECTMAP")
         selectMap(client);
     else if(tmpString ==  "MOVE")
-        moveCharacter(client);
+    {
+        std::string tmpDir = getNextString(&index, message);
+        for(int i = 0; i < tmpDir.length(); i++)
+        {
+            tmpDir[i] = std::toupper(tmpDir[i]);
+        }
+        directions direction;
+        if(tmpDir == "UP")
+            direction = directions::UP;
+        else if(tmpDir == "DOWN")
+            direction = directions::DOWN;
+        else if(tmpDir == "LEFT")
+            direction = directions::LEFT;
+        else if(tmpDir == "RIGHT")
+            direction = directions::RIGHT;
+        else if(tmpDir == "NONE")
+            direction = directions::NONE;
+        else
+            direction = directions::NONE;
+
+        vector2 playerPos;
+        playerPos.x = getNextInt(&index, message);
+        playerPos.y = getNextInt(&index, message);
+        moveCharacter(client, direction, playerPos);
+    }
     else if(tmpString ==  "BATTLE")
         battleAction(client);
     else if(tmpString ==  "COLLECT")

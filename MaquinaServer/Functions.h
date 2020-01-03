@@ -116,18 +116,41 @@ void getGems(sf::TcpSocket* client)
 void selectMap(sf::TcpSocket* client)
 {
     sendMessage(client, "Selecting map...");
-
 }
 
-void moveCharacter(sf::TcpSocket* client)
+void moveCharacter(sf::TcpSocket* client, directions _direction, vector2 playerPos)
 {
-    sendMessage(client, "Moving Character...");
+    if(sockets[client] == -1)
+    {
+        sendMessage(client, "Please enter session before trying to move\n");
+        return;
+    }
+    switch(_direction)
+    {
+    case directions::UP:
+        playerPos.y--;
+        break;
+    case directions::DOWN:
+        playerPos.y++;
+        break;
+    case directions::LEFT:
+        playerPos.x--;
+        break;
+    case directions::RIGHT:
+        playerPos.x++;
+        break;
+    case directions::NONE:
+    default:
+        break;
+    }
+    std::string newPos = "PLAYER_" + std::to_string(playerPos.x) + "_" + std::to_string(playerPos.y);
+    sendMessage(client, newPos);
 }
 
 void battleAction(sf::TcpSocket* client)
 {
-    sendMessage(client, "Using battle command...");
 }
+
 void getPlayers(sf::TcpSocket* client)
 {
     if(sockets[client] == -1)
@@ -136,27 +159,14 @@ void getPlayers(sf::TcpSocket* client)
         return;
     }
 
-
-        int tmp;
-        int counter = 0;
-        std::map<sf::TcpSocket*, int>::iterator it;
-
-        for (it = sockets.begin(); it != sockets.end(); ++it)
-        {
-            counter++;
-            std::string tmpStr = "Player: " + std::to_string(counter) + " --> " + getUserName(it->first);
-            sendMessage(client, tmpStr);
-
-        }
+    sendMessage(client, std::to_string(sockets.size()));
 
 }
 
 
 void updateEnemies(sf::TcpSocket* client)
 {
-    sendMessage(client, "Updating enemies...");
 }
-
 
 void collect(sf::TcpSocket* client, int gemID)
 {

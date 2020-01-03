@@ -10,7 +10,7 @@
 #include <wait.h>
 #include <vector>
 #include <map>
-
+enum class directions {UP, DOWN, LEFT, RIGHT, NONE};
 const uint32_t maxTimeStamp = 5*60*1000; // 5 minutos en milisegundos
 bool gameRunning = true;
 std::map<sf::TcpSocket*, int> sockets;
@@ -25,10 +25,4 @@ sql::Statement* stmt;
 sql::ResultSet* res;
 
 
-void init(){
-    driver = get_driver_instance();
-    con = driver->connect(HOST, USER, PASSWORD);
-    con->setSchema(DATABASE);
-    stmt = con->createStatement();
-}
 

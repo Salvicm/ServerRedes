@@ -51,6 +51,7 @@
 		<Unit filename="ConnectivityFunctions.h" />
 		<Unit filename="Functions.h" />
 		<Unit filename="Globals.h" />
+		<Unit filename="Utils.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />
