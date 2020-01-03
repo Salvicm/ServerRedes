@@ -4,7 +4,11 @@
 
 void verifyUser(sf::TcpSocket* client, std::string userName, std::string password)
 {
-    sendMessage(client, "\nVerifying account...\n");
+    if(sockets[client] != -1)
+    {
+        sendMessage(client, "Can't start two sessions");
+        return;
+    }
     std::string tmpString = "SELECT count(*) FROM Cuentas WHERE NombreUser = '" + userName + "' and PasswordUser = '" + password + "'" ;
     /// Zona limpia 2
     try
@@ -21,14 +25,12 @@ void verifyUser(sf::TcpSocket* client, std::string userName, std::string passwor
                 if(res->next())
                 {
                     sockets[client] = res->getInt("ID_User");
-                    sendMessage(client, "\nUser account exists!\n:)\n");
+                    sendMessage(client, "Correct :)\n");
                 }
-
-
             }
             else if(exists == 0)
             {
-                sendMessage(client, "\nUser account doesn't exist\n:(\n");
+                sendMessage(client, "User account doesn't exist:(\n");
             }
             else
             {
@@ -51,17 +53,13 @@ void verifyUser(sf::TcpSocket* client, std::string userName, std::string passwor
 }
 void spinRoulette(sf::TcpSocket* client)
 { // TODO
-    sendMessage(client,"Spinning Roulette...");
 
     std::string tmpDML = "SELECT LastRoulette from Cuentas WHERE ID_User = '" + std::to_string(sockets[client])+ "'";
     try
     {
         res = stmt->executeQuery(tmpDML.c_str());
-        while(res->next()){
+        while(res->next())
             std::cout << res->getString("LastRoulette") << std::endl;
-
-        }
-
 
     }
     catch(sql::SQLException &e)
@@ -114,22 +112,24 @@ void getGems(sf::TcpSocket* client)
         }
     }
 }
+
 void selectMap(sf::TcpSocket* client)
 {
     sendMessage(client, "Selecting map...");
 
 }
+
 void moveCharacter(sf::TcpSocket* client)
 {
     sendMessage(client, "Moving Character...");
 }
+
 void battleAction(sf::TcpSocket* client)
 {
     sendMessage(client, "Using battle command...");
 }
 void getPlayers(sf::TcpSocket* client)
 {
-    sendMessage(client, "Getting available players...");
     if(sockets[client] == -1)
     {
         sendMessage(client, "Please enter session before trying to access\n");
@@ -164,6 +164,7 @@ void collect(sf::TcpSocket* client, int gemID)
         sendMessage(client, "Please start session before doing anything else");
         return;
     }
+    std::cout << "Query de Busqueda\n";
     std::string tmpDML = "SELECT Cantidad from GemasObtenidas WHERE FK_User = '" + std::to_string(sockets[client]) + "' and FK_Gema = '" + std::to_string(gemID) + "'";
     try
     {
@@ -173,8 +174,11 @@ void collect(sf::TcpSocket* client, int gemID)
             std::string tmpSQL = "UPDATE GemasObtenidas SET Cantidad = '" + std::to_string(currentQuantity+1)
                 + "' WHERE FK_User = '" + std::to_string(sockets[client]) + "' and FK_Gema = '" + std::to_string(gemID)  + "'";
 
-            res = stmt->executeQuery(tmpSQL.c_str());
+            std::cout << "Query de Actualizacion\n";
 
+
+            if(stmt->executeUpdate(tmpSQL.c_str()) == 0)
+                std::cout << "Failed on update" << std::endl;
             }
         else{
             tmpDML = "SELECT count(*) FROM Gemas WHERE ID_Gema = '" + std::to_string(gemID) + "'";
@@ -182,16 +186,15 @@ void collect(sf::TcpSocket* client, int gemID)
             if(res->next()){
                 if(res->getInt(1) == 1){
                     std::string tmpSQL = "INSERT INTO GemasObtenidas(FK_User, FK_Gema, Cantidad) VALUES('" + std::to_string(sockets[client]) + "', '" + std::to_string(gemID) + "', '1')";
-                    res = stmt->executeQuery(tmpSQL.c_str());
+                    std::cout << "Query de Insercion\n";
+                    if(stmt->executeUpdate(tmpSQL.c_str()) == 0)
+                       std::cout << "Failed on insert" << std::endl;
                 }else if(res->getInt(1)== 0){
                     std::cout << "Inexistent gem id\n";
                     return;
                 }
-
             }
-
         }
-
     }
     catch(sql::SQLException &e)
     {
@@ -202,7 +205,7 @@ void collect(sf::TcpSocket* client, int gemID)
             return;
             break;
         default:
-            std::cout << "Error: " << e.getErrorCode() << std::endl;
+            std::cout << "# ERR: " << e.what() << " (MySQL error code: " << e.getErrorCode()<< ", SQLState: " << e.getSQLState() << " )" << std::endl;
             return;
             break;
         }

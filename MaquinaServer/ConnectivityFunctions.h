@@ -9,6 +9,10 @@ void receiveMessages(sf::TcpSocket* client);
 std::string getUserName(sf::TcpSocket* client);
 std::string getUserName(int client);
 
+int getNextInt(int *index, std::string message);
+std::string getNextString(int *index, std::string message);
+
+
 void verifyUser(sf::TcpSocket* client, std::string userName, std::string password);
 void spinRoulette(sf::TcpSocket* client);
 void getGems(sf::TcpSocket* client);
@@ -53,7 +57,6 @@ void sendMessage(sf::TcpSocket* client, std::string message)
     infoToSend << message;
     sf::Socket::Status sendStatus = client->send(infoToSend);
     infoToSend.clear();
-    std::cout << "Message sent succesfully to: " << client <<" With ID: " << std::to_string(sockets[client]) << std::endl;
     if(sendStatus == sf::Socket::Disconnected)
         return;
     if(sendStatus != sf::Socket::Done)
@@ -67,8 +70,6 @@ void sendMessage(sf::TcpSocket* client, std::string message)
 
 void receiveMessages(sf::TcpSocket* client)
 {
-
-
     sf::Packet pack;
     sf::Socket::Status receiveStatus;
     while(gameRunning)
@@ -88,6 +89,8 @@ void receiveMessages(sf::TcpSocket* client)
         {
             std::string tmp;
             pack >> tmp;
+            if(sockets[client] != -1)
+                std::cout << " >> ID: " << getUserName(sockets[client]) << " >> " << tmp << std::endl;
             analyzeMessage(client, tmp);
         }
     }
@@ -121,7 +124,6 @@ std::string getUserName(int client)
 {
     try
     {
-
         std::string tmpQuery = "SELECT nombreUser FROM Cuentas WHERE ID_User = '" + std::to_string(client) + "'";
         res = stmt->executeQuery(tmpQuery.c_str());
         while(res->next())
@@ -143,21 +145,45 @@ std::string getUserName(int client)
     }
 }
 
-void analyzeMessage(sf::TcpSocket* client, std::string message)
-{
+int getNextInt(int *index, std::string message){
+   std::string number = "";
+   char tmpChar;
+    do
+        {
+            tmpChar = message[*index];
+            if(tmpChar >= '0' && tmpChar <= '9')
+                number += tmpChar;
+            else
+            {
+                std::cout << "Collect message incorrect" << std::endl;
+                return -1;
+            }
+            (*index)++;
+        }
+        while((tmpChar != ' ' && tmpChar != '_') && *index < message.length());
+        return std::stoi(number);
+}
+std::string getNextString(int *index, std::string message){
     std::string tmpString = "";
     char tmpChar;
-    int index = 0; // Guarda el indice fuera del scope para usarlo mas adelante leyendo mas del mensaje
     do
     {
-        tmpChar = message[index];
+        tmpChar = message[*index];
         if(tmpChar != ' ' && tmpChar != '_')
-            tmpString += toupper(tmpChar);
-        index++;
+            tmpString += tmpChar;
+        (*index)++;
     }
-    while((tmpChar != ' ' && tmpChar != '_') && index < message.length());
+    while((tmpChar != ' ' && tmpChar != '_') && *index < message.length());
+    return tmpString;
+}
 
-    std::cout << tmpString << std::endl;
+void analyzeMessage(sf::TcpSocket* client, std::string message)
+{
+    int index = 0;
+    std::string tmpString = getNextString(&index, message);
+    for(int i = 0; i < tmpString.length();i++){
+        tmpString[i] = std::toupper(tmpString[i]);
+    }
 
     if(tmpString == "HELP" || tmpString ==  "help")
     {
@@ -167,27 +193,9 @@ void analyzeMessage(sf::TcpSocket* client, std::string message)
 
 
     else if(tmpString == "VERIFY")
-    {
-        std::string user = "";
-        std::string password = "";
-        do
-        {
-            tmpChar = message[index];
-            if(tmpChar != ' ' && tmpChar != '_')
-                user += tmpChar;
-            index++;
-        }
-        while((tmpChar != ' ' && tmpChar != '_') && index < message.length());
-
-        do
-        {
-            tmpChar = message[index];
-            if(tmpChar != ' ' && tmpChar != '_')
-                password += tmpChar;
-            index++;
-        }
-        while((tmpChar != ' ' && tmpChar != '_') && index < message.length());
-        verifyUser(client, user, password);
+    {   std::string a = getNextString(&index, message);
+        std::string b = getNextString(&index, message);
+        verifyUser(client, a, b);
     }
     else if(tmpString ==  "ROULETTE")
         spinRoulette(client);
@@ -200,24 +208,7 @@ void analyzeMessage(sf::TcpSocket* client, std::string message)
     else if(tmpString ==  "BATTLE")
         battleAction(client);
     else if(tmpString ==  "COLLECT")
-    {
-        std::string number = "";
-        do
-        {
-            tmpChar = message[index];
-            if(tmpChar >= '0' && tmpChar <= '9')
-                number += tmpChar;
-            else
-            {
-                std::cout << "Collect message incorrect" << std::endl;
-                return;
-            }
-            index++;
-        }
-        while((tmpChar != ' ' && tmpChar != '_') && index < message.length());
-
-        collect(client, std::stoi(number));
-    }
+        collect(client, getNextInt(&index, message));
     else if(tmpString ==  "USERS")
         getPlayers(client);
     else if(tmpString ==  "UPDATEENEMIES")
