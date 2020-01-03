@@ -46,16 +46,16 @@
 			<Add directory="../SFML_2.5.1/lib" />
 			<Add directory="/usr/lib/x86_64-linux-gnu" />
 		</Linker>
-		<Unit filename="ClientHeader.cpp" />
-		<Unit filename="ClientHeader.h" />
-		<Unit filename="Enemy.cpp" />
-		<Unit filename="Enemy.h" />
-		<Unit filename="Player.cpp" />
-		<Unit filename="Player.h" />
-		<Unit filename="Utils.h" />
 		<Unit filename="include/Enemy2.h" />
+		<Unit filename="include/Player2.h" />
+		<Unit filename="include/Utils2.h" />
+		<Unit filename="include/clientHeader2.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/Enemy2.cpp" />
+		<Unit filename="src/Player2.cpp" />
+		<Unit filename="src/Utils2" />
+		<Unit filename="src/Utils2.cpp" />
+		<Unit filename="src/clientHeader2.cpp" />
 		<Extensions>
 			<code_completion />
 			<debugger />

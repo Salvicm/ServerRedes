@@ -7,7 +7,7 @@ int main()
 {
     size_t received;
     sf::TcpSocket* socket = new sf::TcpSocket();
-    sf::Socket::Status status = socket->connect("127.0.0.1", 50001, sf::seconds(15.f)); //establcemos conexion con el server
+    sf::Socket::Status status = socket->connect("127.0.0.1", 50000, sf::seconds(15.f)); //establcemos conexion con el server
     bool hasVerified;
 
     std::string user;
