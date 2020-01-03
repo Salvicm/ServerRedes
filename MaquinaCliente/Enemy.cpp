@@ -13,11 +13,11 @@ void::Enemy::PlayerDetection(){
 
 void::Enemy::Fight(){
 
-while(SendPacket(socket, "BATTLESTATE_ALIVE")){
+    while(SendPacket(socket, "BATTLESTATE_ALIVE")){
 
-SendPacket(socket, "BATTLE_fight");
+        SendPacket(socket, "BATTLE_fight");
 
-}
+    }
 
 }
 
@@ -27,7 +27,7 @@ void::Enemy::EnemyDies(){
 }
 
 void::Enemy::EnemyDrop(){
-SendPacket(socket, "GEM_power");
+    SendPacket(socket, "GEM_power");
 
 
 }
