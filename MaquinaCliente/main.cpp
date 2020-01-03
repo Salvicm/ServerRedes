@@ -1,4 +1,6 @@
-#include "ClientHeader.h"
+#include "clientHeader2.h"
+
+
 
 
 int main()
@@ -17,8 +19,8 @@ int main()
     else
     {
         int eleccion;
-        //std::thread listener(&ReceivePacket, socket);
-       // listener.detach();
+        std::thread listener(&ReceiveMsg, socket);
+        listener.detach();
 
         ///CLIENTE
         std::cout << "Cliente iniciado\n" << "Porfavor, introduzca su usuario: "<<  std::endl;
@@ -26,7 +28,7 @@ int main()
         std::cout << "Ahora introduzca su contraseña: " << std::endl;
         std::cin >> password;
         std::string verify = "VERIFY_"+user+"_"+password;
-        //SendPacket(socket, verify);
+        SendMsg(socket, verify);
 
 
 
@@ -45,18 +47,18 @@ int main()
             int mapa;
             std::cout << "1. Mapa 1\n" << "2. Mapa 2\n" << std::endl;
             if(mapa == 1){
-                //SendPacket(socket, "SELECTMAP_"+mapa);
+                SendMsg(socket, "SELECTMAP_"+mapa);
                 //selección mapa 1
                 //funcion de inicio de partida?
             }
             else if(mapa == 2){
-                //SendPacket(socket, "SELECTMAP_"+mapa);
+                SendMsg(socket, "SELECTMAP_"+mapa);
                 //selección mapa 2
                 //funcion de inicio de partida?
             }
         }
         else if (eleccion == 2){
-            //SendPacket(socket, "GETGEMS");
+            SendMsg(socket, "GETGEMS");
             //mostrar gemas
         }
         else if(eleccion = 3){

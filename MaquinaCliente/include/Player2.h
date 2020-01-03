@@ -1,17 +1,21 @@
-#ifndef PLAYER_H
-#define PLAYER_H
-#include "Utils.h"
+#ifndef PLAYER2_H
+#define PLAYER2_H
+#include "Utils2.h"
 
 
-class Player{
+class Player2
+{
 public:
     Vec2 playerPos;
-    Player();
+
+    Player2();
+    ~Player2();
+
+
 
 private:
     void Movement(int direccion, sf::TcpSocket* socket);
     void CollectGem( sf::TcpSocket* socket);
     void Inventario( sf::TcpSocket* socket);
-
 };
-#endif // PLAYER_H
+#endif // PLAYER2_H

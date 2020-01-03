@@ -1,25 +1,6 @@
-#ifndef UTILS_H
-#define UTILS_H
+#include "Utils2.h"
 
-#include <vector>
-#include <iostream>
-#include <thread>
-#include <SFML/Network.hpp>
-
-struct Vec2{
-    int x;
-    int y;
-    Vec2(){
-        x = 0;
-        y = 0;
-    }
-    Vec2(int _x, int _y){
-        x = _x;
-        y = _y;
-    }
-};
-
-void ReceivePacket(sf::TcpSocket* client){
+void ReceiveMsg(sf::TcpSocket* client){
     sf::Packet pack;
     sf::Socket::Status receiveStatus;
     while(true)
@@ -44,7 +25,7 @@ void ReceivePacket(sf::TcpSocket* client){
     }
 }
 
-bool SendPacket(sf::TcpSocket* _socket, std::string msg)
+bool SendMsg(sf::TcpSocket* _socket, std::string msg)
 {
     sf::Packet infoToSend;
     infoToSend << msg;
@@ -61,4 +42,3 @@ bool SendPacket(sf::TcpSocket* _socket, std::string msg)
     return true;
 
 }
-#endif

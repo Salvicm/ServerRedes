@@ -395,8 +395,8 @@
 	<SFML/Network/IpAddress.hpp>
 	<vector>
 
-1578086207 source:/home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/MaquinaCliente/main.cpp
-	"ClientHeader.h"
+1578090172 source:/home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/MaquinaCliente/main.cpp
+	"clientHeader2.h"
 
 1577915774 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/Network.hpp
 	<SFML/System.hpp>
@@ -595,16 +595,16 @@
 1578086131 source:/home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/MaquinaCliente/ClientHeader.cpp
 	"ClientHeader.h"
 
-1578086020 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/MaquinaCliente/ClientHeader.h
+1578087476 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/MaquinaCliente/ClientHeader.h
 	"Enemy.h"
 
-1578085698 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/MaquinaCliente/Player.h
+1578087476 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/MaquinaCliente/Player.h
 	"Utils.h"
 
-1578085698 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/MaquinaCliente/Enemy.h
+1578087476 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/MaquinaCliente/Enemy.h
 	"Player.h"
 
-1578086292 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/MaquinaCliente/Utils.h
+1578087476 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/MaquinaCliente/Utils.h
 	<vector>
 	<iostream>
 	<thread>
@@ -615,4 +615,28 @@
 
 1578086186 source:/home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/MaquinaCliente/Player.cpp
 	"Player.h"
+
+1578088452 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/MaquinaCliente/include/clientHeader2.h
+	"Enemy2.h"
+
+1578088180 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/MaquinaCliente/include/Enemy2.h
+	"Player2.h"
+
+1578088366 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/MaquinaCliente/include/Player2.h
+	"Utils2.h"
+
+1578091011 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/MaquinaCliente/include/Utils2.h
+	<vector>
+	<iostream>
+	<thread>
+	<SFML/Network.hpp>
+
+1578090016 source:/home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/MaquinaCliente/src/clientHeader2.cpp
+	"clientHeader2.h"
+
+1578087807 source:/home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/MaquinaCliente/src/Enemy2.cpp
+	"Enemy2.h"
+
+1578090015 source:/home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/MaquinaCliente/src/Player2.cpp
+	"Player2.h"
 
