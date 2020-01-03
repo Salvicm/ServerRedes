@@ -53,7 +53,11 @@ void verifyUser(sf::TcpSocket* client, std::string userName, std::string passwor
 }
 void spinRoulette(sf::TcpSocket* client)
 { // TODO
-
+    if(sockets[client] == -1)
+    {
+        sendMessage(client, "Please enter session before trying to access\n");
+        return;
+    }
     std::string tmpDML = "SELECT LastRoulette from Cuentas WHERE ID_User = '" + std::to_string(sockets[client])+ "'";
     try
     {
@@ -113,9 +117,56 @@ void getGems(sf::TcpSocket* client)
     }
 }
 
-void selectMap(sf::TcpSocket* client)
+void getMaps(sf::TcpSocket* client)
 {
-    sendMessage(client, "Selecting map...");
+    if(sockets[client] == -1)
+    {
+        sendMessage(client, "Please enter session before trying to access\n");
+        return;
+    }
+    try
+    {
+        sendMessage(client, "This are the available maps: ");
+        std::string tmpSQL = "SELECT * FROM Mapas";
+        res = stmt->executeQuery(tmpSQL.c_str());
+        while(res->next())
+        {
+            sendMessage(client, res->getString("NombreMapa"));
+        }
+    }
+    catch(sql::SQLException &e)
+    {
+        std::cout << "# ERR: " << e.what();
+        std::cout << " (MySQL error code: " << e.getErrorCode();
+        std::cout << ", SQLState: " << e.getSQLState() << " )" << std::endl;
+    }
+}
+
+void selectMap(sf::TcpSocket* client, int mapID)
+{
+    if(sockets[client] == -1)
+    {
+        sendMessage(client, "Please enter session before trying to access\n");
+        return;
+    }
+    try
+    {
+        sendMessage(client, "Selecting map: " + std::to_string(mapID));
+        std::string pathString;
+        std::string tmpSQL = "SELECT XML FROM Mapas WHERE ID_Mapa = '" + std::to_string(mapID) + "'";
+        res = stmt->executeQuery(tmpSQL.c_str());
+        while(res->next())
+        {
+            pathString = res->getString("XML");
+            sendMessage(client, pathString);
+        }
+    }
+    catch(sql::SQLException &e)
+    {
+        std::cout << "# ERR: " << e.what();
+        std::cout << " (MySQL error code: " << e.getErrorCode();
+        std::cout << ", SQLState: " << e.getSQLState() << " )" << std::endl;
+    }
 }
 
 void moveCharacter(sf::TcpSocket* client, directions _direction, vector2 playerPos)
@@ -149,6 +200,7 @@ void moveCharacter(sf::TcpSocket* client, directions _direction, vector2 playerP
 
 void battleAction(sf::TcpSocket* client)
 {
+
 }
 
 void getPlayers(sf::TcpSocket* client)

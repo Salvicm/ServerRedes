@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Game>
+	<Positions x="200" y="200">
+		<Enemy x="100" y="80"/>
+		<Enemy x="50" y="100"/>
+		<Enemy x="25" y="50"/>
+		<Enemy x="400" y="120"/>
+		<Enemy x="300" y="200"/>
+		<Enemy x="150" y="980"/>
+		<Enemy x="600" y="780"/>
+
+
+
+		
+	</Positions>
+	<Map>
+		<Wall x="10" y="10"/>
+		<Wall x="20" y="10"/>
+		<Wall x="30" y="10"/>
+		<Wall x="40" y="10"/>
+		<Wall x="50" y="10"/>
+		<Wall x="60" y="10"/>
+		<Wall x="70" y="10"/>
+		<Wall x="80" y="10"/>
+		<Wall x="90" y="10"/>
+		<Wall x="100" y="10"/>
+		<Wall x="110" y="10"/>
+		<Wall x="120" y="10"/>
+		<Wall x="130" y="10"/>
+		<Wall x="140" y="10"/>
+		<Wall x="150" y="10"/>
+		<Wall x="160" y="10"/>
+		<Wall x="170" y="10"/>
+		<Wall x="180" y="10"/>
+		<Wall x="190" y="10"/>
+		<Wall x="200" y="10"/>
+
+	</Map>
+</Game>

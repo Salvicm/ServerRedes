@@ -10,6 +10,8 @@
 #include <wait.h>
 #include <vector>
 #include <map>
+
+std::string path = "../Assets/Map_1.xml";
 enum class directions {UP, DOWN, LEFT, RIGHT, NONE};
 const uint32_t maxTimeStamp = 5*60*1000; // 5 minutos en milisegundos
 bool gameRunning = true;
@@ -23,6 +25,3 @@ sql::Driver* driver;
 sql::Connection* con;
 sql::Statement* stmt;
 sql::ResultSet* res;
-
-
-

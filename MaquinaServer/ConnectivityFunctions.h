@@ -14,7 +14,8 @@ std::string getUserName(int client);
 void verifyUser(sf::TcpSocket* client, std::string userName, std::string password);
 void spinRoulette(sf::TcpSocket* client);
 void getGems(sf::TcpSocket* client);
-void selectMap(sf::TcpSocket* client);
+void getMaps(sf::TcpSocket* client);
+void selectMap(sf::TcpSocket* client, int mapID);
 void moveCharacter(sf::TcpSocket* client, directions _direction, vector2 playerPos);
 void battleAction(sf::TcpSocket* client);
 void getPlayers(sf::TcpSocket* client);
@@ -168,10 +169,13 @@ void analyzeMessage(sf::TcpSocket* client, std::string message)
         spinRoulette(client);
     else if(tmpString ==  "GETGEMS")
         getGems(client);
-    else if(tmpString ==  "SELECTMAP")
-        selectMap(client);
-    else if(tmpString ==  "MOVE")
-    {
+    else if(tmpString ==  "SELECTMAP") {
+            int mapID = getNextInt(&index, message);
+            selectMap(client, mapID);
+        }
+    else if(tmpString == "GETMAPS")
+        getMaps(client);
+    else if(tmpString ==  "MOVE") {
         std::string tmpDir = getNextString(&index, message);
         for(int i = 0; i < tmpDir.length(); i++)
         {
