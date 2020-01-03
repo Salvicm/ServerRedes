@@ -1,14 +1,10 @@
-#include <iostream>
-#include <iostream>
-#include <unistd.h>
-#include <wait.h>
-#include <vector>
 #include "Functions.h"
 
 
 int main()
 {
-    sf::Socket::Status status = dispatcher.listen(50001);
+    init();
+    sf::Socket::Status status = dispatcher.listen(50000);
     std::thread conThreads(&getNewConnections); // Esto se encarga de recibir todos los nuevos sockets
     conThreads.detach();
 
@@ -22,11 +18,18 @@ int main()
             gameRunning = false;
         }
     }
-    std::vector<sf::TcpSocket*>::iterator it;
+    std::map<sf::TcpSocket*, int>::iterator it;
     for (it = sockets.begin(); it != sockets.end(); ++it){
-        (*it)->disconnect();
+         it->first->disconnect();
     }
     dispatcher.close();
+    if(res != nullptr) //  Asegurarse porque, si no hemos hecho ninguna query esto petará
+        res->close();
+    delete(res);
+    stmt->close();
+    delete(stmt);
+    con->close();
+    delete(con);
     return 0;
 }
 
