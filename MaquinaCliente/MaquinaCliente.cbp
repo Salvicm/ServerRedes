@@ -50,6 +50,7 @@
 		<Unit filename="Enemy.h" />
 		<Unit filename="Player.cpp" />
 		<Unit filename="Player.h" />
+		<Unit filename="Utils.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />

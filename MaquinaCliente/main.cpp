@@ -1,49 +1,6 @@
-#include <iostream>
-#include <thread>
-#include <SFML/Network.hpp>
+#include "ClientHeader.h"
 
-void ReceivePacket(sf::TcpSocket* client)
-{
-    sf::Packet pack;
-    sf::Socket::Status receiveStatus;
-    while(true)
-    {
-        pack.clear();
-        receiveStatus = client->receive(pack);
-        if(receiveStatus == sf::Socket::Disconnected)
-        {
-            std::cout << "Is Disconnected\n";
-            return;
-        }
-        if (receiveStatus != sf::Socket::Done)
-        {
-            std::cout << "Recepción de datos fallida" << std::endl;
-        }
-        else if(receiveStatus == sf::Socket::Done)
-        {
-            std::string tmp;
-            pack >> tmp;
-            std::cout << " Se ha recibido: " << tmp << std::endl;
-        }
-    }
-}
-bool SendPacket(sf::TcpSocket* _socket, std::string msg)
-{
-    sf::Packet infoToSend;
-    infoToSend << msg;
-    sf::Socket::Status sendStatus = _socket->send(infoToSend);
-    infoToSend.clear();
-    std::cout << "Message sent: " << msg << std::endl;
-    if(sendStatus == sf::Socket::Disconnected)
-        return false;
-    if(sendStatus != sf::Socket::Done)
-    {
-        std::cout << "Envio de datos fallido" << std::endl;
-        return false;
-    }
-    return true;
 
-}
 int main()
 {
     size_t received;
@@ -60,8 +17,8 @@ int main()
     else
     {
         int eleccion;
-        std::thread listener(&ReceivePacket, socket);
-        listener.detach();
+        //std::thread listener(&ReceivePacket, socket);
+       // listener.detach();
 
         ///CLIENTE
         std::cout << "Cliente iniciado\n" << "Porfavor, introduzca su usuario: "<<  std::endl;
@@ -69,7 +26,7 @@ int main()
         std::cout << "Ahora introduzca su contraseña: " << std::endl;
         std::cin >> password;
         std::string verify = "VERIFY_"+user+"_"+password;
-        SendPacket(socket, verify);
+        //SendPacket(socket, verify);
 
 
 
@@ -88,18 +45,18 @@ int main()
             int mapa;
             std::cout << "1. Mapa 1\n" << "2. Mapa 2\n" << std::endl;
             if(mapa == 1){
-                SendPacket(socket, "SELECTMAP_"+mapa);
+                //SendPacket(socket, "SELECTMAP_"+mapa);
                 //selección mapa 1
                 //funcion de inicio de partida?
             }
             else if(mapa == 2){
-                SendPacket(socket, "SELECTMAP_"+mapa);
+                //SendPacket(socket, "SELECTMAP_"+mapa);
                 //selección mapa 2
                 //funcion de inicio de partida?
             }
         }
         else if (eleccion == 2){
-            SendPacket(socket, "GETGEMS");
+            //SendPacket(socket, "GETGEMS");
             //mostrar gemas
         }
         else if(eleccion = 3){

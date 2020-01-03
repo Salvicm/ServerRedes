@@ -1,15 +1,6 @@
-struct Vec2{
-    int x;
-    int y;
-    Vec2(){
-        x = 0;
-        y = 0;
-    }
-    Vec2(int _x, int _y){
-        x = _x;
-        y = _y;
-    }
-};
+#ifndef PLAYER_H
+#define PLAYER_H
+#include "Utils.h"
 
 
 class Player{
@@ -18,8 +9,9 @@ public:
     Player();
 
 private:
-    void Movement();
-    void CollectGem();
-    void Inventario();
+    void Movement(int direccion, sf::TcpSocket* socket);
+    void CollectGem( sf::TcpSocket* socket);
+    void Inventario( sf::TcpSocket* socket);
 
 };
+#endif // PLAYER_H

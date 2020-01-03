@@ -1,3 +1,6 @@
+#ifndef ENEMY_H
+#define ENEMY_H
+#include "Player.h"
 class Enemy{
 public:
     int gemPower;
@@ -12,3 +15,4 @@ private:
 
 };
 
+#endif // ENEMY_H

@@ -1,27 +1,30 @@
 #include "ClientHeader.h"
 
-ClientHeader::Client(){
-    states = LOGIN;
+GameClient::GameClient(){
+    states = ClientStates::LOGIN;
     player = new Player();
-    enemies = new Enemy(); ///wrong
+   // enemies = new Enemy(); ///wrong
+}
+
+GameClient::~GameClient(){
+    delete player;
+}
+
+void GameClient::WhoIsConnected(sf::TcpSocket* socket){
+
+    ///no se que poner porque es algo que tiene que ver con el server
+    //SendPacket(socket, "USERS");
 
 }
 
-void::ClientHeader::WhoIsConnected(){
+void GameClient::SaveGems(sf::TcpSocket* socket){
 
-///no se que poner porque es algo que tiene que ver con el server
-SendPacket(socket, "USERS");
-
-}
-
-void::ClientHeader::SaveGems(){
-
-    SendPacket(socket, "GETGEMS");
+    //SendPacket(socket, "GETGEMS");
 
 
 }
 
-void::ClientHeader::Exit(){
+void GameClient::Exit(){
 
 ///exit()?
 
