@@ -13,7 +13,7 @@
 
 std::string path = "../Assets/Map_1.xml";
 enum class directions {UP, DOWN, LEFT, RIGHT, NONE};
-const uint32_t maxTimeStamp = 5*60*1000; // 5 minutos en milisegundos
+const uint32_t maxTimeStamp = 0*60; // 5 minutos en segundos
 bool gameRunning = true;
 std::map<sf::TcpSocket*, int> sockets;
 sf::TcpListener dispatcher;

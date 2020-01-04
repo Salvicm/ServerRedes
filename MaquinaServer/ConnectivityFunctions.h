@@ -9,7 +9,7 @@ void receiveMessages(sf::TcpSocket* client);
 std::string getUserName(sf::TcpSocket* client);
 std::string getUserName(int client);
 
-void UpdateRoulette(sf::TcpSocket* client);
+bool UpdateRoulette(sf::TcpSocket* client);
 
 void verifyUser(sf::TcpSocket* client, std::string userName, std::string password);
 void spinRoulette(sf::TcpSocket* client);
@@ -165,7 +165,7 @@ void analyzeMessage(sf::TcpSocket* client, std::string message)
         verifyUser(client, a, b);
     }
     else if(tmpString ==  "ROULETTE"){
-        UpdateRoulette(client);
+        spinRoulette(client);
     }
     else if(tmpString ==  "GETGEMS"){
         getGems(client);
