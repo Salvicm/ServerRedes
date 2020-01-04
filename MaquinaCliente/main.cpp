@@ -3,13 +3,15 @@
 
 int main()
 {
+    srand(time(NULL));
     size_t received;
     sf::TcpSocket* socket = new sf::TcpSocket();
     sf::Socket::Status status = socket->connect("127.0.0.1", 50000, sf::seconds(15.f)); //establcemos conexion con el server
     bool hasVerified;
     GAMESTATE state = GAMESTATE::LOGIN;
     logState = LOGINSTATE::LOGIN;
-
+    playerAttack = rand()%15+5;
+    playerDefense = rand()%15+5;
 
     std::string user;
     std::string password;
@@ -60,21 +62,21 @@ int main()
                 break;
             case GAMESTATE::RUNNING:
                 char pressed;
+                std::cout << "\nPulsa H para recordar los comandos\nPulsa I para abrir el inventario.\nPulsa F para combatir.\nPulsa U para ver a los usuarios.\nPulsa E para salir." << std::endl;
                 std::cin >> pressed;
-                keyPressed(pressed, socket);
-
-                // state = GAMESTATE::EXIT;
+                if(!keyPressed(pressed, socket))
+                    state = GAMESTATE::EXIT;
                 break;
             case GAMESTATE::ROULETTE:
-                int decision;
+                char decision;
                 std::cout << "1. Tirar ruleta\n" << "2. Ignorar" << std::endl;
                 std::cin >> decision;
-                if(decision == 1){
+                if(decision == '1'){
                     SendMsg(socket, "ROULETTE");
                     sleep(2);
                     state = GAMESTATE::RUNNING;
                 }
-                else{
+                else if(decision == '2'){
                     state = GAMESTATE::RUNNING;
                 }
                 break;

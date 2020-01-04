@@ -33,11 +33,11 @@ void getNewConnections()
         }
         else
         {
+            srand(time(NULL));
             std::cout << "Conexión establecida con : " << newClient << std::endl;
             sockets[newClient] = -1;
             std::thread gameThread(&gameFunct, newClient);
             gameThread.detach();
-            sendMessage(newClient, "Enter Help to get all available commands");
         }
     }
 }

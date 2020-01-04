@@ -4,8 +4,8 @@
 
 int singularidadPlayer = 0;
 LOGINSTATE logState;
-int playerAttack = rand()%15+5;
-int playerDefense = rand()%15+5;
+int playerAttack = 0;
+int playerDefense = 0;
 
 void ReceiveMsg(sf::TcpSocket* client){
     sf::Packet pack;
@@ -33,7 +33,7 @@ void ReceiveMsg(sf::TcpSocket* client){
                 else if(tmp == "ALREADYCON"){
                     std::cout << "Already connected\n";
                     sleep(1);
-                    std::cout << "Singularidad total: " << singularidadPlayer << std::endl;
+
                     logState = LOGINSTATE::LOGIN;
                 }
                 else if(tmp == "ROULETTE"){
@@ -158,6 +158,8 @@ std::string getNextString(int *index, std::string message){
 void inventory(sf::TcpSocket* _socket){
     std::cout << "Mostrando inventario:" << std::endl;
     SendMsg(_socket, "GETGEMS");
+    sleep(2);
+    std::cout << "Singularidad total: " << singularidadPlayer << std::endl;
 }
 
 void showUsers(sf::TcpSocket* _socket){
@@ -172,18 +174,29 @@ void battle(sf::TcpSocket* _socket){
 
 }
 
-void keyPressed(char key, sf::TcpSocket* _socket){
+bool keyPressed(char key, sf::TcpSocket* _socket){
     switch(key){
-        case 'i' || 'I':
+        case 'i':
+        case 'I':
             inventory(_socket);
+            return true;
             break;
         case 'u':
+        case 'U':
             showUsers(_socket);
+            return true;
             break;
         case 'f':
+        case 'F':
             battle(_socket);
+            return true;
+            break;
+        case 'e':
+        case 'E':
+            return false;
             break;
         default:
             break;
     }
+    return true;
 }

@@ -21,6 +21,6 @@ std::string getNextString(int *index, std::string message);
 void inventory(sf::TcpSocket* _socket);
 void showUsers(sf::TcpSocket* _socket);
 void battle(sf::TcpSocket* _socket);
-void keyPressed(char key, sf::TcpSocket* _socket);
+bool keyPressed(char key, sf::TcpSocket* _socket);
 
 #endif // UTILS2_H_INCLUDED

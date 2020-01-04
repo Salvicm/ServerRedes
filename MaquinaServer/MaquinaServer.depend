@@ -199,7 +199,7 @@
 	<SFML/Network/IpAddress.hpp>
 	<vector>
 
-1578136465 source:/home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/MaquinaServer/main.cpp
+1578164831 source:/home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/MaquinaServer/main.cpp
 	"Functions.h"
 
 1577915774 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/Network.hpp
@@ -396,11 +396,11 @@
 	<SFML/Network/IpAddress.hpp>
 	<vector>
 
-1578162945 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/MaquinaServer/Functions.h
+1578165122 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/MaquinaServer/Functions.h
 	"ConnectivityFunctions.h"
 	<ctime>
 
-1578160868 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/MaquinaServer/Globals.h
+1578164554 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/MaquinaServer/Globals.h
 	<SFML/Network.hpp>
 	<ctime>
 	<thread>
@@ -417,7 +417,7 @@
 1577793116 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/MaquinaServer/BasicFunctions.h
 	"Globals.h"
 
-1578162492 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/MaquinaServer/ConnectivityFunctions.h
+1578164845 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/MaquinaServer/ConnectivityFunctions.h
 	"Utils.h"
 
 1494432899 /usr/include/cppconn/resultset.h

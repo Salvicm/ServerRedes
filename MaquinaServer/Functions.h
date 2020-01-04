@@ -24,6 +24,15 @@ void verifyUser(sf::TcpSocket* client, std::string userName, std::string passwor
                 res = stmt->executeQuery(tmpString.c_str());
                 if(res->next())
                 {
+                    std::map<sf::TcpSocket*, int>::iterator it;
+                    for (it = sockets.begin(); it != sockets.end(); ++it)
+                    {
+                        if(it->second == res->getInt("ID_User"))
+                        {
+                            sendMessage(client, "ALREADYCON");
+                            return;
+                        }
+                    }
                     sockets[client] = res->getInt("ID_User");
                     getGems(client);
                     if(UpdateRoulette(client))
@@ -110,7 +119,6 @@ bool UpdateRoulette(sf::TcpSocket* client)
 
         time(&currentTime);
 
-        std::cout << currentTime << std::endl << lastRoulette << std::endl;
         if(difftime(currentTime, lastRoulette) >= maxTimeStamp)
         {
             return true;
