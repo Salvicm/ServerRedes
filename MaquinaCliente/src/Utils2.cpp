@@ -1,5 +1,8 @@
 #include "Utils2.h"
 
+
+LOGINSTATE logState;
+
 void ReceiveMsg(sf::TcpSocket* client){
     sf::Packet pack;
     sf::Socket::Status receiveStatus;
@@ -21,6 +24,18 @@ void ReceiveMsg(sf::TcpSocket* client){
             std::string tmp;
             pack >> tmp;
             std::cout << " >>  " << tmp << std::endl;
+            if(logState == LOGINSTATE::VERIFYING){
+                if(tmp == "CONNECTED")
+                    logState = LOGINSTATE::SUCCESS;
+                else if(tmp == "ALREADYCON"){
+                    std::cout << "Already connected\n";
+                    logState = LOGINSTATE::LOGIN;
+                }
+                else if( tmp == "INEXISTENT"){
+                    std::cout << "Username doesn't exist\n";
+                    logState = LOGINSTATE::LOGIN;
+                }
+            }
         }
     }
 }
@@ -41,4 +56,12 @@ bool SendMsg(sf::TcpSocket* _socket, std::string msg)
     }
     return true;
 
+}
+
+void WaitTime(){
+    sleep(5);
+    if(logState == LOGINSTATE::VERIFYING){
+        logState = LOGINSTATE::LOGIN;
+        std::cout << "Login out of time" << std::endl;
+    }
 }

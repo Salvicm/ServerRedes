@@ -6,7 +6,7 @@ void verifyUser(sf::TcpSocket* client, std::string userName, std::string passwor
 {
     if(sockets[client] != -1)
     {
-        sendMessage(client, "Can't start two sessions");
+        sendMessage(client, "ALREADYCON");
         return;
     }
     std::string tmpString = "SELECT count(*) FROM Cuentas WHERE NombreUser = '" + userName + "' and PasswordUser = '" + password + "'" ;
@@ -25,12 +25,12 @@ void verifyUser(sf::TcpSocket* client, std::string userName, std::string passwor
                 if(res->next())
                 {
                     sockets[client] = res->getInt("ID_User");
-                    sendMessage(client, "Correct :)\n");
+                    sendMessage(client, "CONNECTED");
                 }
             }
             else if(exists == 0)
             {
-                sendMessage(client, "User account doesn't exist:(\n");
+                sendMessage(client, "INEXISTENT");
             }
             else
             {

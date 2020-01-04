@@ -48,6 +48,9 @@
 		</Linker>
 		<Unit filename="include/Enemy2.h" />
 		<Unit filename="include/Player2.h" />
+		<Unit filename="include/Types.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="include/Utils2.h" />
 		<Unit filename="include/clientHeader2.h" />
 		<Unit filename="main.cpp" />
