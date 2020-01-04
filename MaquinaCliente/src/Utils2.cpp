@@ -1,6 +1,6 @@
 #include "Utils2.h"
 
-
+int singularidadPlayer = 0;
 LOGINSTATE logState;
 
 void ReceiveMsg(sf::TcpSocket* client){
@@ -30,6 +30,9 @@ void ReceiveMsg(sf::TcpSocket* client){
                 else if(tmp == "ALREADYCON"){
                     std::cout << "Already connected\n";
                     logState = LOGINSTATE::LOGIN;
+                }
+                else if(tmp == "ROULETTE"){
+                    logState = LOGINSTATE::ROULETTE;
                 }
                 else if( tmp == "INEXISTENT"){
                     std::cout << "Username doesn't exist\n";
@@ -79,23 +82,29 @@ void analyzeMessage(std::string message){
     if(tmpString == "GEM"){
         int id = getNextInt(&index, message);
         int cantidad = getNextInt(&index, message);
+        int poder = getNextInt(&index, message);
         switch(id){
             case 1:
-                std::cout << "Zafiro - Cantidad: " << cantidad << " unidad/es" << std::endl;
+                singularidadPlayer += poder*cantidad;
+                std::cout << "Zafiro - Cantidad: " << cantidad << " unidad/es. " << "Singularidad total: " << poder*cantidad << std::endl;
                 break;
             case 2:
-                std::cout << "Rubi - Cantidad: " << cantidad << " unidad/es" << std::endl;
+                singularidadPlayer += poder*cantidad;
+                std::cout << "Rubi - Cantidad: " << cantidad << " unidad/es. " << "Singularidad total: " << poder*cantidad << std::endl;
                 break;
             case 3:
-                std::cout << "Esmeralda - Cantidad: " << cantidad << " unidad/es" << std::endl;
+                singularidadPlayer += poder*cantidad;
+                std::cout << "Esmeralda - Cantidad: " << cantidad << " unidad/es. " << "Singularidad total: " << poder*cantidad << std::endl;
                 break;
             default:
                 break;
         }
-        ///todo singularidad
     }
-    else if(tmpString == "USERS"){
+    else if(tmpString == "USER"){
+        int idUSer = getNextInt(&index, message);
+        std::string nameUser = getNextString(&index, message);
         std::cout << "Usuarios conectados: " << std::endl;
+        std::cout << "ID: " << idUSer << "User: " << nameUser << std::endl;
     }
 }
 

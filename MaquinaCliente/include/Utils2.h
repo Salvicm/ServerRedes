@@ -7,6 +7,7 @@
 #include <SFML/Network.hpp>
 #include "Types.h"
 
+extern int singularidadPlayer;
 extern LOGINSTATE logState;
 void ReceiveMsg(sf::TcpSocket* client);
 bool SendMsg(sf::TcpSocket* _socket, std::string msg);

@@ -10,7 +10,7 @@ int main()
     GAMESTATE state = GAMESTATE::LOGIN;
     logState = LOGINSTATE::LOGIN;
 
-    char pressed;
+
     std::string user;
     std::string password;
     if (status != sf::Socket::Done)
@@ -47,17 +47,24 @@ int main()
                     break;
                 case LOGINSTATE::SUCCESS:
                     state = GAMESTATE::RUNNING;
+                    singularidadPlayer = 0;
                     SendMsg(socket, "GETGEMS");
+                    sleep(2);
+                    std::cout << "Singularidad del Usuario: " << singularidadPlayer << std::endl;
                     break;
                 default:
                     break;
                 }
                 break;
             case GAMESTATE::RUNNING:
+                char pressed;
                 std::cin >> pressed;
                 keyPressed(pressed, socket);
 
                 // state = GAMESTATE::EXIT;
+                break;
+            case GAMESTATE::ROULETTE:
+                state = GAMESTATE::ROULETTE;
                 break;
             case GAMESTATE::EXIT:
                 break;

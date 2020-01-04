@@ -13,8 +13,8 @@ struct Vec2{
         y = _y;
     }
 };
-enum class GAMESTATE{LOGIN, RUNNING, EXIT};
-enum class LOGINSTATE{LOGIN, VERIFYING, SUCCESS};
+enum class GAMESTATE{LOGIN, RUNNING, ROULETTE, EXIT};
+enum class LOGINSTATE{LOGIN, VERIFYING, ROULETTE, SUCCESS};
 
 
 #endif // TYPES_H_INCLUDED
