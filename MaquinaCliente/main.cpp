@@ -75,34 +75,7 @@ int main()
 
 
 
-        std::cout << "1. Selección de mapa\n" << "2. Gemas\n" << "3. Salir\n" << std::endl;
-        std::cin >> eleccion;
-        if(eleccion == 1)
-        {
-            int mapa;
-            std::cout << "1. Mapa 1\n" << "2. Mapa 2\n" << std::endl;
-            if(mapa == 1)
-            {
-                SendMsg(socket, "SELECTMAP_"+mapa);
-                //selección mapa 1
-                //funcion de inicio de partida?
-            }
-            else if(mapa == 2)
-            {
-                SendMsg(socket, "SELECTMAP_"+mapa);
-                //selección mapa 2
-                //funcion de inicio de partida?
-            }
-        }
-        else if (eleccion == 2)
-        {
-            SendMsg(socket, "GETGEMS");
-            //mostrar gemas
-        }
-        else if(eleccion = 3)
-        {
-            exit(0);
-        }
+
     }
 
 
