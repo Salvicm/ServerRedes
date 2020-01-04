@@ -9,7 +9,7 @@ void receiveMessages(sf::TcpSocket* client);
 std::string getUserName(sf::TcpSocket* client);
 std::string getUserName(int client);
 
-
+void UpdateRoulette(sf::TcpSocket* client);
 
 void verifyUser(sf::TcpSocket* client, std::string userName, std::string password);
 void spinRoulette(sf::TcpSocket* client);
@@ -95,7 +95,6 @@ std::string getUserName(sf::TcpSocket* client)
 {
     try
     {
-
         std::string tmpQuery = "SELECT nombreUser FROM Cuentas WHERE ID_User = '" + std::to_string(sockets[client]) + "'";
         res = stmt->executeQuery(tmpQuery.c_str());
         while(res->next())
@@ -165,10 +164,12 @@ void analyzeMessage(sf::TcpSocket* client, std::string message)
         std::string b = getNextString(&index, message);
         verifyUser(client, a, b);
     }
-    else if(tmpString ==  "ROULETTE")
-        spinRoulette(client);
-    else if(tmpString ==  "GETGEMS")
+    else if(tmpString ==  "ROULETTE"){
+        UpdateRoulette(client);
+    }
+    else if(tmpString ==  "GETGEMS"){
         getGems(client);
+    }
     else if(tmpString ==  "SELECTMAP") {
             int mapID = getNextInt(&index, message);
             selectMap(client, mapID);
