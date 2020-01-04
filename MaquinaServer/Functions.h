@@ -95,13 +95,21 @@ void getGems(sf::TcpSocket* client)
     try
     {
         res = stmt->executeQuery(tmpString.c_str());
-        /// Core dumped
+        sql::ResultSet* tmpRes;
 
         while(res->next())
         {
-            std::string tmpStr = "GEM_" +std::to_string(res->getInt("FK_Gema")) + "_" + std::to_string(res->getInt("Cantidad"));
-            sendMessage(client, tmpStr);
-        }
+            tmpString = "SELECT Valor FROM Gemas WHERE ID_Gema = '" + std::to_string(res->getInt("FK_Gema")) + "'";
+            tmpRes = stmt->executeQuery(tmpString.c_str());
+            if(tmpRes->next()){
+                std::string tmpStr = "GEM_" +std::to_string(res->getInt("FK_Gema")) + "_" + std::to_string(res->getInt("Cantidad")) + "_" + std::to_string(tmpRes->getInt("Valor"));
+                sendMessage(client, tmpStr);
+            }
+            else{
+                std::cout << "Error: Gem Query failing\n";
+                return;
+            }
+    }
     }
     catch(sql::SQLException &e)
     {
