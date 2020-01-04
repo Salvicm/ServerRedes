@@ -36,6 +36,9 @@ void ReceiveMsg(sf::TcpSocket* client){
                     logState = LOGINSTATE::LOGIN;
                 }
             }
+            else{
+            analyzeMessage(tmp);
+            }
         }
     }
 }
@@ -63,5 +66,91 @@ void WaitTime(){
     if(logState == LOGINSTATE::VERIFYING){
         logState = LOGINSTATE::LOGIN;
         std::cout << "Login out of time" << std::endl;
+    }
+}
+
+void analyzeMessage(std::string message){
+    int index = 0;
+    std::string tmpString = getNextString(&index, message);
+    for(int i = 0; i < tmpString.length(); i++)
+    {
+        tmpString[i] = std::toupper(tmpString[i]);
+    }
+    if(tmpString == "GEM"){
+        int id = getNextInt(&index, message);
+        int cantidad = getNextInt(&index, message);
+        switch(id){
+            case 1:
+                std::cout << "Zafiro - Cantidad: " << cantidad << " unidad/es" << std::endl;
+                break;
+            case 2:
+                std::cout << "Rubi - Cantidad: " << cantidad << " unidad/es" << std::endl;
+                break;
+            case 3:
+                std::cout << "Esmeralda - Cantidad: " << cantidad << " unidad/es" << std::endl;
+                break;
+            default:
+                break;
+        }
+        ///todo singularidad
+    }
+    else if(tmpString == "USERS"){
+        std::cout << "Usuarios conectados: " << std::endl;
+    }
+}
+
+int getNextInt(int *index, std::string message){
+   std::string number = "";
+   char tmpChar;
+    do
+        {
+            tmpChar = message[*index];
+            if(tmpChar >= '0' && tmpChar <= '9')
+                number += tmpChar;
+            else if(tmpChar != ' ' && tmpChar != '_')
+            {
+                std::cout << "Collect message incorrect" << std::endl;
+                return -1;
+            }
+            (*index)++;
+        }
+        while((tmpChar != ' ' && tmpChar != '_') && *index < message.length());
+        return std::stoi(number);
+}
+
+std::string getNextString(int *index, std::string message){
+    std::string tmpString = "";
+    char tmpChar;
+    do
+    {
+        tmpChar = message[*index];
+        if(tmpChar != ' ' && tmpChar != '_')
+            tmpString += tmpChar;
+        (*index)++;
+    }
+    while((tmpChar != ' ' && tmpChar != '_') && *index < message.length());
+    return tmpString;
+}
+
+void inventory(sf::TcpSocket* _socket){
+    std::cout << "Mostrando inventario:" << std::endl;
+    SendMsg(_socket, "GETGEMS");
+}
+
+void showUsers(sf::TcpSocket* _socket){
+    std::cout << "Usuarios conectados:" << std::endl;
+    SendMsg(_socket, "USERS");
+}
+
+void keyPressed(char key, sf::TcpSocket* _socket){
+    switch(key){
+        case 'i':
+            inventory(_socket);
+            break;
+        case 'u':
+            showUsers(_socket);
+            break;
+        default:
+            break;
     }
 }

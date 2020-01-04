@@ -10,6 +10,7 @@ int main()
     GAMESTATE state = GAMESTATE::LOGIN;
     logState = LOGINSTATE::LOGIN;
 
+    char pressed;
     std::string user;
     std::string password;
     if (status != sf::Socket::Done)
@@ -46,12 +47,16 @@ int main()
                     break;
                 case LOGINSTATE::SUCCESS:
                     state = GAMESTATE::RUNNING;
+                    SendMsg(socket, "GETGEMS");
                     break;
                 default:
                     break;
                 }
                 break;
             case GAMESTATE::RUNNING:
+                std::cin >> pressed;
+                keyPressed(pressed, socket);
+
                 // state = GAMESTATE::EXIT;
                 break;
             case GAMESTATE::EXIT:
