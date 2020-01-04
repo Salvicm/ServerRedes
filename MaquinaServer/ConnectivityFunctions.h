@@ -21,6 +21,7 @@ void battleAction(sf::TcpSocket* client, int, int);
 void getPlayers(sf::TcpSocket* client);
 void updateEnemies(sf::TcpSocket* client);
 void collect(sf::TcpSocket* client, int gemID);
+void collectRandom(sf::TcpSocket* client);
 
 void getNewConnections()
 {
@@ -208,6 +209,8 @@ void analyzeMessage(sf::TcpSocket* client, std::string message)
         }
     else if(tmpString ==  "COLLECT")
         collect(client, getNextInt(&index, message));
+    else if(tmpString == "GENCOLLECT")
+        collectRandom(client);
     else if(tmpString ==  "USERS")
         getPlayers(client);
     else if(tmpString ==  "UPDATEENEMIES")

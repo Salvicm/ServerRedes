@@ -28,9 +28,7 @@ void verifyUser(sf::TcpSocket* client, std::string userName, std::string passwor
                     getGems(client);
                     if(UpdateRoulette(client))
                     {
-                        std::cout << "Roulette\n";
-                        spinRoulette(client);
-                        sendMessage(client, "CONNECTED"); // Cambiar esto tras el merge
+                        sendMessage(client, "ROULETTE");
                     }
                     else
                     {
@@ -71,11 +69,9 @@ void spinRoulette(sf::TcpSocket* client)
     std::string tmpDML = "UPDATE Cuentas SET LastRoulette = current_timestamp WHERE ID_User = '" + std::to_string(sockets[client]) + "'" ;
     try
     {
-        int i =(rand() % 3) + 1;
         if(stmt->executeUpdate(tmpDML.c_str()) != 0)
         {
-            collect(client, i);
-
+            collectRandom(client);
         }
     }
     catch(sql::SQLException &e)
@@ -269,33 +265,38 @@ void moveCharacter(sf::TcpSocket* client, directions _direction, vector2 playerP
 
 void battleAction(sf::TcpSocket* client, int pAt, int pDef)
 {
-        bool enemyAlive = true;
-        int atEn = rand()% 15+1;
-        int defEn = rand()% 15+1;
-        int hpEn = 30;
-        int gema = rand()% 3+1;
-        int aux = 0;
-        int auxDef = defEn;
-        int auxHpEn = hpEn;
-        int i = 0; ///turnos
-    while(enemyAlive){
+    bool enemyAlive = true;
+    int atEn = rand()% 15+1;
+    int defEn = rand()% 15+1;
+    int hpEn = 30;
+    int gema = rand()% 3+1;
+    int aux = 0;
+    int auxDef = defEn;
+    int auxHpEn = hpEn;
+    int i = 0; ///turnos
+    while(enemyAlive)
+    {
         i++;
         ///Ataque player
         defEn -= pAt;
-        if(defEn < 0){
+        if(defEn < 0)
+        {
             aux = defEn;
             defEn= 0;
             hpEn += aux;
         }
         ///muerte enemigo
-        if(hpEn <= 0){
+        if(hpEn <= 0)
+        {
             enemyAlive = false;
+            std::cout << "Envia mensaje\n";
             sendMessage(client, "BATTLE_"+std::to_string(atEn)+"_"+std::to_string(auxDef)+"_"+std::to_string(auxHpEn)+"_"+std::to_string(i));
 
 
         }
         ///ataque enemy
-        if(pDef > 0){
+        if(pDef > 0)
+        {
             pDef -= atEn;
         }
     }
@@ -327,6 +328,12 @@ void getPlayers(sf::TcpSocket* client)
 void updateEnemies(sf::TcpSocket* client)
 {
 }
+void collectRandom(sf::TcpSocket* client)
+{
+    int i =(rand() % 3) + 1;
+    collect(client, i);
+
+}
 
 void collect(sf::TcpSocket* client, int gemID)
 {
@@ -353,7 +360,8 @@ void collect(sf::TcpSocket* client, int gemID)
             {
                 std::string tmpStr = "SELECT Tipo FROM Gemas WHERE ID_Gema = '" + std::to_string(gemID) + "'";
                 res = stmt->executeQuery(tmpStr.c_str());
-                if(res->next()){
+                if(res->next())
+                {
                     std::string toSend = "Has obtenido una gema del tipo: " + res->getString("Tipo");
                     sendMessage(client, toSend);
                 }
@@ -368,9 +376,18 @@ void collect(sf::TcpSocket* client, int gemID)
                 if(res->getInt(1) == 1)
                 {
                     std::string tmpSQL = "INSERT INTO GemasObtenidas(FK_User, FK_Gema, Cantidad) VALUES('" + std::to_string(sockets[client]) + "', '" + std::to_string(gemID) + "', '1')";
-                    std::cout << "Query de Insercion\n";
                     if(stmt->executeUpdate(tmpSQL.c_str()) == 0)
                         std::cout << "Failed on insert" << std::endl;
+                    else
+                    {
+                        std::string tmpStr = "SELECT Tipo FROM Gemas WHERE ID_Gema = '" + std::to_string(gemID) + "'";
+                        res = stmt->executeQuery(tmpStr.c_str());
+                        if(res->next())
+                        {
+                            std::string toSend = "Has obtenido una gema del tipo: " + res->getString("Tipo");
+                            sendMessage(client, toSend);
+                        }
+                    }
                 }
                 else if(res->getInt(1)== 0)
                 {

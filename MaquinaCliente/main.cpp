@@ -37,6 +37,7 @@ int main()
                     std::cout << "Ahora introduzca su contraseña: " << std::endl;
                     std::cin >> password;
                     std::string verify = "VERIFY_"+user+"_"+password;
+                    singularidadPlayer = 0;
                     SendMsg(socket, verify);
                     logState = LOGINSTATE::VERIFYING;
                     std::cout << "Logging in...\n" << std::endl;

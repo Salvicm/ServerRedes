@@ -15,7 +15,7 @@ extern LOGINSTATE logState;
 void ReceiveMsg(sf::TcpSocket* client);
 bool SendMsg(sf::TcpSocket* _socket, std::string msg);
 void WaitTime();
-void analyzeMessage(std::string message);
+void analyzeMessage(sf::TcpSocket* _socket, std::string message);
 int getNextInt(int *index, std::string message);
 std::string getNextString(int *index, std::string message);
 void inventory(sf::TcpSocket* _socket);

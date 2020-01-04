@@ -27,15 +27,18 @@ void ReceiveMsg(sf::TcpSocket* client){
         {
             std::string tmp;
             pack >> tmp;
-            std::cout << " >>  " << tmp << std::endl;
             if(logState == LOGINSTATE::VERIFYING){
                 if(tmp == "CONNECTED")
                     logState = LOGINSTATE::SUCCESS;
                 else if(tmp == "ALREADYCON"){
                     std::cout << "Already connected\n";
+                    sleep(1);
+                    std::cout << "Singularidad total: " << singularidadPlayer << std::endl;
                     logState = LOGINSTATE::LOGIN;
                 }
                 else if(tmp == "ROULETTE"){
+                    sleep(1);
+                    std::cout << "Singularidad total: " << singularidadPlayer << std::endl;
                     logState = LOGINSTATE::ROULETTE;
                 }
                 else if( tmp == "INEXISTENT"){
@@ -43,9 +46,8 @@ void ReceiveMsg(sf::TcpSocket* client){
                     logState = LOGINSTATE::LOGIN;
                 }
             }
-            else{
-            analyzeMessage(tmp);
-            }
+            analyzeMessage(client, tmp);
+
         }
     }
 }
@@ -76,7 +78,7 @@ void WaitTime(){
     }
 }
 
-void analyzeMessage(std::string message){
+void analyzeMessage(sf::TcpSocket* _socket, std::string message){
     int index = 0;
     std::string tmpString = getNextString(&index, message);
     for(int i = 0; i < tmpString.length(); i++)
@@ -106,10 +108,17 @@ void analyzeMessage(std::string message){
 
         std::cout << "Player - AT: " << playerAttack << " DEF: " << playerDefense << std::endl;
         std::cout << "Enemy - AT: " << atEnemigo << " DEF: " << defEnemigo << " HP: " << hpEnemigo << std::endl;
-        std::cout << "El enemigo ha morido despues de " << turnos << " turnos. El jugador ha recibido " << atEnemigo*(turnos-1) << " puntos de daño" << std::endl;
-
+        std::cout << "El enemigo ha muerto despues de " << turnos << " turnos. El jugador ha recibido " << atEnemigo*(turnos-1) << " puntos de daño" << std::endl;
+        std::cout << "\n¡El enemigo ha soltado una gema!\n";
+        SendMsg(_socket, "GENCOLLECT");
+    }
+    else if((message == "CONNECTED")|| (message == "ALREADYCON")|| (message == "ROULETTE")|| ( message == "INEXISTENT")){
 
     }
+    else
+        std::cout << " >>  " << message << std::endl;
+
+
 
 }
 
