@@ -2,8 +2,8 @@
 
 Player2::Player2()
 {
-    //ctor
-        playerPos = {0,0};
+    attack = rand()% 14+5;
+    defense = rand()% 14+5;
 
 }
 
@@ -43,3 +43,4 @@ void Player2::Inventario( sf::TcpSocket* socket){
     SendMsg(socket, "GETGEMS");
 
 }
+

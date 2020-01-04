@@ -2,7 +2,24 @@
 
 Enemy2::Enemy2()
 {
-    //ctor
+    gem = rand()% 3+1;
+    health = 30;
+    attack = rand() % 15+1;
+    defense = rand()% 15+1;
+    switch(gem){
+        case 1:
+            gemPower = 10;
+            break;
+        case 2:
+            gemPower = 15;
+            break;
+        case 3:
+            gemPower = 9;
+            break;
+        default:
+            gemPower = 69;
+            break;
+    }
 }
 
 Enemy2::~Enemy2()
@@ -21,7 +38,6 @@ void Enemy2::PlayerDetection(){
 }
 
 void Enemy2::Fight(){
-
 
 
 }

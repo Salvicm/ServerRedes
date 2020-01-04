@@ -48,10 +48,11 @@ int main()
                 case LOGINSTATE::SUCCESS:
                     state = GAMESTATE::RUNNING;
                     singularidadPlayer = 0;
-                    SendMsg(socket, "GETGEMS");
                     sleep(2);
                     std::cout << "Singularidad del Usuario: " << singularidadPlayer << std::endl;
                     break;
+                case LOGINSTATE::ROULETTE:
+                    state = GAMESTATE::ROULETTE;
                 default:
                     break;
                 }
@@ -64,7 +65,17 @@ int main()
                 // state = GAMESTATE::EXIT;
                 break;
             case GAMESTATE::ROULETTE:
-                state = GAMESTATE::ROULETTE;
+                int decision;
+                std::cout << "1. Tirar ruleta\n" << "2. Ignorar" << std::endl;
+                std::cin >> decision;
+                if(decision == 1){
+                    SendMsg(socket, "ROULETTE");
+                    sleep(2);
+                    state = GAMESTATE::RUNNING;
+                }
+                else{
+                    state = GAMESTATE::RUNNING;
+                }
                 break;
             case GAMESTATE::EXIT:
                 break;

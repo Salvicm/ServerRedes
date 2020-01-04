@@ -17,7 +17,7 @@ void getGems(sf::TcpSocket* client);
 void getMaps(sf::TcpSocket* client);
 void selectMap(sf::TcpSocket* client, int mapID);
 void moveCharacter(sf::TcpSocket* client, directions _direction, vector2 playerPos);
-void battleAction(sf::TcpSocket* client);
+void battleAction(sf::TcpSocket* client, int, int);
 void getPlayers(sf::TcpSocket* client);
 void updateEnemies(sf::TcpSocket* client);
 void collect(sf::TcpSocket* client, int gemID);
@@ -201,8 +201,11 @@ void analyzeMessage(sf::TcpSocket* client, std::string message)
         playerPos.y = getNextInt(&index, message);
         moveCharacter(client, direction, playerPos);
     }
-    else if(tmpString ==  "BATTLE")
-        battleAction(client);
+    else if(tmpString ==  "BATTLE"){
+        int pAt = getNextInt(&index, message);
+        int pDef = getNextInt(&index, message);
+        battleAction(client, pAt, pDef);
+        }
     else if(tmpString ==  "COLLECT")
         collect(client, getNextInt(&index, message));
     else if(tmpString ==  "USERS")

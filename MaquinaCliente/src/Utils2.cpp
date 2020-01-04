@@ -1,7 +1,11 @@
 #include "Utils2.h"
 
+
+
 int singularidadPlayer = 0;
 LOGINSTATE logState;
+int playerAttack = rand()%15+5;
+int playerDefense = rand()%15+5;
 
 void ReceiveMsg(sf::TcpSocket* client){
     sf::Packet pack;
@@ -80,6 +84,7 @@ void analyzeMessage(std::string message){
         tmpString[i] = std::toupper(tmpString[i]);
     }
     if(tmpString == "GEM"){
+
         int id = getNextInt(&index, message);
         int cantidad = getNextInt(&index, message);
         int poder = getNextInt(&index, message);
@@ -101,11 +106,24 @@ void analyzeMessage(std::string message){
         }
     }
     else if(tmpString == "USER"){
+
         int idUSer = getNextInt(&index, message);
         std::string nameUser = getNextString(&index, message);
-        std::cout << "Usuarios conectados: " << std::endl;
-        std::cout << "ID: " << idUSer << "User: " << nameUser << std::endl;
+        std::cout << "ID: " << idUSer << " User: " << nameUser << std::endl;
     }
+    else if(tmpString == "BATTLE"){
+        int atEnemigo = getNextInt(&index, message);
+        int defEnemigo = getNextInt(&index, message);
+        int hpEnemigo = getNextInt(&index, message);
+        int turnos = getNextInt(&index, message);
+
+        std::cout << "Player - AT: " << playerAttack << " DEF: " << playerDefense << std::endl;
+        std::cout << "Enemy - AT: " << atEnemigo << " DEF: " << defEnemigo << " HP: " << hpEnemigo << std::endl;
+        std::cout << "El enemigo ha morido despues de " << turnos << " turnos. El jugador ha recibido " << atEnemigo*(turnos-1) << " puntos de daño" << std::endl;
+
+
+    }
+
 }
 
 int getNextInt(int *index, std::string message){
@@ -151,13 +169,23 @@ void showUsers(sf::TcpSocket* _socket){
     SendMsg(_socket, "USERS");
 }
 
+
+void battle(sf::TcpSocket* _socket){
+    std::cout << "Empieza el combate: " << std::endl;
+    SendMsg(_socket, "BATTLE_"+std::to_string(playerAttack)+"_"+std::to_string(playerDefense));
+
+}
+
 void keyPressed(char key, sf::TcpSocket* _socket){
     switch(key){
-        case 'i':
+        case 'i' || 'I':
             inventory(_socket);
             break;
         case 'u':
             showUsers(_socket);
+            break;
+        case 'f':
+            battle(_socket);
             break;
         default:
             break;

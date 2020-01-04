@@ -6,6 +6,10 @@
 class Enemy2
 {
     public:
+        int gem;
+        int health;
+        int attack;
+        int defense;
         int gemPower;
         Vec2 enemyPos;
         Enemy2(int x, int y, int power);

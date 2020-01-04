@@ -249,8 +249,38 @@ void moveCharacter(sf::TcpSocket* client, directions _direction, vector2 playerP
     sendMessage(client, newPos);
 }
 
-void battleAction(sf::TcpSocket* client)
+void battleAction(sf::TcpSocket* client, int pAt, int pDef)
 {
+        bool enemyAlive = true;
+        int atEn = rand()% 15+1;
+        int defEn = rand()% 15+1;
+        int hpEn = 30;
+        int gema = rand()% 3+1;
+        int aux = 0;
+        int auxDef = defEn;
+        int auxHpEn = hpEn;
+        int i = 0; ///turnos
+    while(enemyAlive){
+        i++;
+        ///Ataque player
+        defEn -= pAt;
+        if(defEn < 0){
+            aux = defEn;
+            defEn= 0;
+            hpEn += aux;
+        }
+        ///muerte enemigo
+        if(hpEn <= 0){
+            enemyAlive = false;
+            sendMessage(client, "BATTLE_"+std::to_string(atEn)+"_"+std::to_string(auxDef)+"_"+std::to_string(auxHpEn)+"_"+std::to_string(i));
+
+
+        }
+        ///ataque enemy
+        if(pDef > 0){
+            pDef -= atEn;
+        }
+    }
 
 }
 
