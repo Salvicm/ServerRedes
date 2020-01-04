@@ -1,5 +1,5 @@
 #include "ConnectivityFunctions.h"
-
+#include <ctime>
 
 
 void verifyUser(sf::TcpSocket* client, std::string userName, std::string password)
@@ -25,7 +25,17 @@ void verifyUser(sf::TcpSocket* client, std::string userName, std::string passwor
                 if(res->next())
                 {
                     sockets[client] = res->getInt("ID_User");
-                    sendMessage(client, "CONNECTED");
+                    getGems(client);
+                    if(UpdateRoulette(client))
+                    {
+                        std::cout << "Roulette\n";
+                        spinRoulette(client);
+                        sendMessage(client, "CONNECTED"); // Cambiar esto tras el merge
+                    }
+                    else
+                    {
+                        sendMessage(client, "CONNECTED");
+                    }
                 }
             }
             else if(exists == 0)
@@ -58,50 +68,15 @@ void spinRoulette(sf::TcpSocket* client)
         sendMessage(client, "Please enter session before trying to access\n");
         return;
     }
-    std::string tmpDML = "SELECT LastRoulette from Cuentas WHERE ID_User = '" + std::to_string(sockets[client])+ "'";
-    try
-    {
-        res = stmt->executeQuery(tmpDML.c_str());
-        while(res->next())
-            std::cout << res->getString("LastRoulette") << std::endl;
-
-    }
-    catch(sql::SQLException &e)
-    {
-        switch(e.getErrorCode())
-        {
-        case 1064:// Fallo de mensaje en la query
-            sendMessage(client, "Error: Query name incorrect.\n");
-            return;
-            break;
-        default:
-            std::cout << "# ERR: " << e.what();
-            std::cout << " (MySQL error code: " << e.getErrorCode();
-            std::cout << ", SQLState: " << e.getSQLState() << " )" << std::endl;            return;
-            break;
-        }
-    }
-}
-void UpdateRoulette(sf::TcpSocket* client)
-{
-    if(sockets[client] == -1)
-    {
-        sendMessage(client, "Please enter session before trying to access\n");
-        return;
-    }
-    spinRoulette(client);
     std::string tmpDML = "UPDATE Cuentas SET LastRoulette = current_timestamp WHERE ID_User = '" + std::to_string(sockets[client]) + "'" ;
     try
     {
-
+        int i =(rand() % 3) + 1;
         if(stmt->executeUpdate(tmpDML.c_str()) != 0)
         {
-            std::cout<<"Updated roulette\n";
-            spinRoulette(client);
+            collect(client, i);
 
         }
-
-
     }
     catch(sql::SQLException &e)
     {
@@ -120,6 +95,50 @@ void UpdateRoulette(sf::TcpSocket* client)
         }
     }
 }
+bool UpdateRoulette(sf::TcpSocket* client)
+{
+
+    time_t lastRoulette;
+    time_t currentTime;
+    std::string tmpDML = "SELECT LastRoulette from Cuentas WHERE ID_User = '" + std::to_string(sockets[client])+ "'";
+    std::string tmp;
+    try
+    {
+        res = stmt->executeQuery(tmpDML.c_str());
+        while(res->next())
+            tmp = res->getString("LastRoulette");
+
+        tm t;
+        strptime(tmp.c_str(), "%F %T", &t);
+        lastRoulette = mktime(&t);
+
+        time(&currentTime);
+
+        std::cout << currentTime << std::endl << lastRoulette << std::endl;
+        if(difftime(currentTime, lastRoulette) >= maxTimeStamp)
+        {
+            return true;
+        }
+        else return false;
+
+    }
+    catch(sql::SQLException &e)
+    {
+        switch(e.getErrorCode())
+        {
+        case 1064:// Fallo de mensaje en la query
+            sendMessage(client, "Error: Query name incorrect.\n");
+            return false;
+            break;
+        default:
+            std::cout << "# ERR: " << e.what();
+            std::cout << " (MySQL error code: " << e.getErrorCode();
+            std::cout << ", SQLState: " << e.getSQLState() << " )" << std::endl;
+            return false;
+            break;
+        }
+    }
+}
 void getGems(sf::TcpSocket* client)
 {
     if(sockets[client] == -1)
@@ -128,7 +147,6 @@ void getGems(sf::TcpSocket* client)
         return;
     }
 
-    sendMessage(client, "Getting available gems...");
     std::string tmpString =  "SELECT FK_Gema, Cantidad from GemasObtenidas WHERE FK_User = '" + std::to_string(sockets[client]) + "'";
     /// Zona limpia 2
     try
@@ -138,11 +156,11 @@ void getGems(sf::TcpSocket* client)
 
         while(res->next())
         {
-            tmpString = "SELECT Valor FROM Gemas WHERE ID_Gema = '" + std::to_string(res->getInt("FK_Gema")) + "'";
+            tmpString = "SELECT Valor, Tipo FROM Gemas WHERE ID_Gema = '" + std::to_string(res->getInt("FK_Gema")) + "'";
             tmpRes = stmt->executeQuery(tmpString.c_str());
             if(tmpRes->next())
             {
-                std::string tmpStr = "GEM_" +std::to_string(res->getInt("FK_Gema")) + "_" + std::to_string(res->getInt("Cantidad")) + "_" + std::to_string(tmpRes->getInt("Valor"));
+                std::string tmpStr = "GEM_" + tmpRes->getString("Tipo") + "_" + std::to_string(res->getInt("Cantidad")) + "_" + std::to_string(tmpRes->getInt("Valor"));
                 sendMessage(client, tmpStr);
             }
             else
@@ -317,7 +335,6 @@ void collect(sf::TcpSocket* client, int gemID)
         sendMessage(client, "Please start session before doing anything else");
         return;
     }
-    std::cout << "Query de Busqueda\n";
     std::string tmpDML = "SELECT Cantidad from GemasObtenidas WHERE FK_User = '" + std::to_string(sockets[client]) + "' and FK_Gema = '" + std::to_string(gemID) + "'";
     try
     {
@@ -328,11 +345,19 @@ void collect(sf::TcpSocket* client, int gemID)
             std::string tmpSQL = "UPDATE GemasObtenidas SET Cantidad = '" + std::to_string(currentQuantity+1)
                                  + "' WHERE FK_User = '" + std::to_string(sockets[client]) + "' and FK_Gema = '" + std::to_string(gemID)  + "'";
 
-            std::cout << "Query de Actualizacion\n";
-
-
             if(stmt->executeUpdate(tmpSQL.c_str()) == 0)
+            {
                 std::cout << "Failed on update" << std::endl;
+            }
+            else
+            {
+                std::string tmpStr = "SELECT Tipo FROM Gemas WHERE ID_Gema = '" + std::to_string(gemID) + "'";
+                res = stmt->executeQuery(tmpStr.c_str());
+                if(res->next()){
+                    std::string toSend = "Has obtenido una gema del tipo: " + res->getString("Tipo");
+                    sendMessage(client, toSend);
+                }
+            }
         }
         else
         {

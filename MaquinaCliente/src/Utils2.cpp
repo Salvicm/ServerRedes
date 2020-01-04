@@ -84,26 +84,13 @@ void analyzeMessage(std::string message){
         tmpString[i] = std::toupper(tmpString[i]);
     }
     if(tmpString == "GEM"){
-
-        int id = getNextInt(&index, message);
+        std::string tipo = getNextString(&index, message);
         int cantidad = getNextInt(&index, message);
         int poder = getNextInt(&index, message);
-        switch(id){
-            case 1:
-                singularidadPlayer += poder*cantidad;
-                std::cout << "Zafiro - Cantidad: " << cantidad << " unidad/es. " << "Singularidad total: " << poder*cantidad << std::endl;
-                break;
-            case 2:
-                singularidadPlayer += poder*cantidad;
-                std::cout << "Rubi - Cantidad: " << cantidad << " unidad/es. " << "Singularidad total: " << poder*cantidad << std::endl;
-                break;
-            case 3:
-                singularidadPlayer += poder*cantidad;
-                std::cout << "Esmeralda - Cantidad: " << cantidad << " unidad/es. " << "Singularidad total: " << poder*cantidad << std::endl;
-                break;
-            default:
-                break;
-        }
+
+        singularidadPlayer += poder*cantidad;
+        std::cout << tipo << " - Cantidad: " << cantidad << " unidad/es. " << "Singularidad total: " << poder*cantidad << std::endl;
+
     }
     else if(tmpString == "USER"){
 

@@ -398,7 +398,7 @@
 1578158497 source:/home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/MaquinaCliente/main.cpp
 	"clientHeader2.h"
 
-1578133707 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/Network.hpp
+1577915774 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/Network.hpp
 	<SFML/System.hpp>
 	<SFML/Network/Ftp.hpp>
 	<SFML/Network/Http.hpp>
@@ -411,7 +411,7 @@
 	<SFML/Network/TcpSocket.hpp>
 	<SFML/Network/UdpSocket.hpp>
 
-1578133707 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/System.hpp
+1577915774 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/System.hpp
 	<SFML/Config.hpp>
 	<SFML/System/Clock.hpp>
 	<SFML/System/Err.hpp>
@@ -431,24 +431,24 @@
 	<SFML/System/Vector2.hpp>
 	<SFML/System/Vector3.hpp>
 
-1578133707 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/Config.hpp
+1577915774 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/Config.hpp
 	"TargetConditionals.h"
 
-1578133707 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/System/Clock.hpp
+1577915774 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/System/Clock.hpp
 	<SFML/System/Export.hpp>
 	<SFML/System/Time.hpp>
 
-1578133707 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/System/Export.hpp
+1577915774 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/System/Export.hpp
 	<SFML/Config.hpp>
 
-1578133707 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/System/Time.hpp
+1577915774 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/System/Time.hpp
 	<SFML/System/Export.hpp>
 
-1578133707 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/System/Err.hpp
+1577915774 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/System/Err.hpp
 	<SFML/System/Export.hpp>
 	<ostream>
 
-1578133707 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/System/FileInputStream.hpp
+1577915774 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/System/FileInputStream.hpp
 	<SFML/Config.hpp>
 	<SFML/System/Export.hpp>
 	<SFML/System/InputStream.hpp>
@@ -456,32 +456,32 @@
 	<cstdio>
 	<string>
 
-1578133707 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/System/InputStream.hpp
+1577915774 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/System/InputStream.hpp
 	<SFML/Config.hpp>
 	<SFML/System/Export.hpp>
 
-1578133707 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/System/NonCopyable.hpp
+1577915774 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/System/NonCopyable.hpp
 	<SFML/System/Export.hpp>
 
-1578133707 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/System/Lock.hpp
+1577915774 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/System/Lock.hpp
 	<SFML/System/Export.hpp>
 	<SFML/System/NonCopyable.hpp>
 
-1578133707 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/System/MemoryInputStream.hpp
+1577915774 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/System/MemoryInputStream.hpp
 	<SFML/Config.hpp>
 	<SFML/System/InputStream.hpp>
 	<SFML/System/Export.hpp>
 	<cstdlib>
 
-1578133707 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/System/Mutex.hpp
+1577915774 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/System/Mutex.hpp
 	<SFML/System/Export.hpp>
 	<SFML/System/NonCopyable.hpp>
 
-1578133707 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/System/Sleep.hpp
+1577915774 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/System/Sleep.hpp
 	<SFML/System/Export.hpp>
 	<SFML/System/Time.hpp>
 
-1578133707 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/System/String.hpp
+1577915774 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/System/String.hpp
 	<SFML/System/Export.hpp>
 	<SFML/System/Utf.hpp>
 	<iterator>
@@ -489,7 +489,7 @@
 	<string>
 	<SFML/System/String.inl>
 
-1578133707 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/System/Utf.hpp
+1577915774 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/System/Utf.hpp
 	<SFML/Config.hpp>
 	<algorithm>
 	<locale>
@@ -497,40 +497,40 @@
 	<cstdlib>
 	<SFML/System/Utf.inl>
 
-1578133707 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/System/Utf.inl
+1577915774 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/System/Utf.inl
 
-1578133707 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/System/String.inl
+1577915774 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/System/String.inl
 
-1578133707 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/System/Thread.hpp
+1577915774 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/System/Thread.hpp
 	<SFML/System/Export.hpp>
 	<SFML/System/NonCopyable.hpp>
 	<cstdlib>
 	<SFML/System/Thread.inl>
 
-1578133707 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/System/Thread.inl
+1577915774 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/System/Thread.inl
 
-1578133707 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/System/ThreadLocal.hpp
+1577915774 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/System/ThreadLocal.hpp
 	<SFML/System/Export.hpp>
 	<SFML/System/NonCopyable.hpp>
 	<cstdlib>
 
-1578133707 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/System/ThreadLocalPtr.hpp
+1577915774 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/System/ThreadLocalPtr.hpp
 	<SFML/System/ThreadLocal.hpp>
 	<SFML/System/ThreadLocalPtr.inl>
 
-1578133707 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/System/ThreadLocalPtr.inl
+1577915774 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/System/ThreadLocalPtr.inl
 
-1578133707 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/System/Vector2.hpp
+1577915774 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/System/Vector2.hpp
 	<SFML/System/Vector2.inl>
 
-1578133707 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/System/Vector2.inl
+1577915774 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/System/Vector2.inl
 
-1578133707 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/System/Vector3.hpp
+1577915774 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/System/Vector3.hpp
 	<SFML/System/Vector3.inl>
 
-1578133707 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/System/Vector3.inl
+1577915774 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/System/Vector3.inl
 
-1578133707 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/Network/Ftp.hpp
+1577915774 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/Network/Ftp.hpp
 	<SFML/Network/Export.hpp>
 	<SFML/Network/TcpSocket.hpp>
 	<SFML/System/NonCopyable.hpp>
@@ -538,25 +538,25 @@
 	<string>
 	<vector>
 
-1578133707 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/Network/Export.hpp
+1577915774 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/Network/Export.hpp
 	<SFML/Config.hpp>
 
-1578133707 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/Network/TcpSocket.hpp
+1577915774 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/Network/TcpSocket.hpp
 	<SFML/Network/Export.hpp>
 	<SFML/Network/Socket.hpp>
 	<SFML/System/Time.hpp>
 
-1578133707 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/Network/Socket.hpp
+1577915774 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/Network/Socket.hpp
 	<SFML/Network/Export.hpp>
 	<SFML/Network/SocketHandle.hpp>
 	<SFML/System/NonCopyable.hpp>
 	<vector>
 
-1578133707 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/Network/SocketHandle.hpp
+1577915774 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/Network/SocketHandle.hpp
 	<SFML/Config.hpp>
 	<basetsd.h>
 
-1578133707 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/Network/Http.hpp
+1577915774 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/Network/Http.hpp
 	<SFML/Network/Export.hpp>
 	<SFML/Network/IpAddress.hpp>
 	<SFML/Network/TcpSocket.hpp>
@@ -565,28 +565,28 @@
 	<map>
 	<string>
 
-1578133707 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/Network/IpAddress.hpp
+1577915774 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/Network/IpAddress.hpp
 	<SFML/Network/Export.hpp>
 	<SFML/System/Time.hpp>
 	<istream>
 	<ostream>
 	<string>
 
-1578133707 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/Network/Packet.hpp
+1577915774 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/Network/Packet.hpp
 	<SFML/Network/Export.hpp>
 	<string>
 	<vector>
 
-1578133707 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/Network/SocketSelector.hpp
+1577915774 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/Network/SocketSelector.hpp
 	<SFML/Network/Export.hpp>
 	<SFML/System/Time.hpp>
 
-1578133707 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/Network/TcpListener.hpp
+1577915774 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/Network/TcpListener.hpp
 	<SFML/Network/Export.hpp>
 	<SFML/Network/Socket.hpp>
 	<SFML/Network/IpAddress.hpp>
 
-1578133707 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/Network/UdpSocket.hpp
+1577915774 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/SFML_2.5.1/include/SFML/Network/UdpSocket.hpp
 	<SFML/Network/Export.hpp>
 	<SFML/Network/Socket.hpp>
 	<SFML/Network/IpAddress.hpp>
@@ -616,7 +616,7 @@
 1578086186 source:/home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/MaquinaCliente/Player.cpp
 	"Player.h"
 
-1578133721 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/MaquinaCliente/include/clientHeader2.h
+1578136538 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/MaquinaCliente/include/clientHeader2.h
 	"Enemy2.h"
 
 1578148630 /home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/MaquinaCliente/include/Enemy2.h
@@ -635,7 +635,7 @@
 	"Types.h"
 	"Player2.h"
 
-1578133721 source:/home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/MaquinaCliente/src/clientHeader2.cpp
+1578136538 source:/home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/MaquinaCliente/src/clientHeader2.cpp
 	"clientHeader2.h"
 
 1578151114 source:/home/salvi/Documents/AA2_Aguilo_Calvillo_Garcia_Servidor/ServerRedes/MaquinaCliente/src/Enemy2.cpp
